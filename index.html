@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logic &amp; Critical Reasoning Trainer</title>
+<style>
+:root{--blue:#0064a4;--gold:#ffd200;--grey:#eceff1;--line:#d5dade;--ink:#1f2426;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f7f8f9;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:18px}
+header.top{background:var(--blue);color:#fff;padding:22px 18px;border-bottom:5px solid var(--gold)}
+header.top .inner{max-width:900px;margin:0 auto}
+h1{margin:0;font-size:1.6rem;letter-spacing:.2px}
+.sub{margin:5px 0 0;font-size:.95rem;opacity:.92}
+section.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:18px 0}
+h2{font-size:1.1rem;margin:0 0 10px;color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+th{background:var(--grey);font-size:.8rem;text-transform:uppercase;letter-spacing:.4px}
+code{background:#f2f4f6;padding:1px 5px;border-radius:4px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.bad{color:#b3261e}
+select,input[type=text],textarea{font:inherit;padding:8px 10px;border:1px solid #b9c0c6;border-radius:6px;width:100%;background:#fff}
+select#week optgroup{font-weight:800;font-style:normal;color:var(--blue);background:var(--grey);text-transform:uppercase;letter-spacing:.6px;font-size:.82rem}
+select#week option{font-weight:400;color:var(--ink);background:#fff;text-transform:none;letter-spacing:normal;font-size:1rem;padding-left:6px}
+select.okbox{background:#e7f5ec;border-color:#97ceac}
+select.nobox{background:#fdecea;border-color:#eda9a2}
+select.revbox{background:#fff8dd;border-color:#e8d78a}
+.qcounter{background:var(--grey);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;padding:9px 12px;font-weight:700;font-size:.9rem;margin:0 0 12px;letter-spacing:.2px}
+.passage{background:#fbfcfd;border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:1.05rem;margin:0 0 14px}
+.passage b{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.6px;color:#5b666e;margin-bottom:4px;font-weight:700}
+.step{border:1px solid var(--line);border-radius:99px;padding:12px 14px;margin:0 0 12px;background:#fff}
+.step{border-radius:99px}
+.step{border-radius:9px}
+.step.done{background:#fcfdfd}
+.steplabel{font-size:.75rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.prompt{font-size:1rem;margin:0 0 10px;white-space:pre-wrap}
+.choices{list-style:none;margin:0;padding:0}
+.choices li{margin:0 0 8px}
+.choices label{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:7px;padding:10px 12px;cursor:pointer;background:#fff}
+.choices label:hover{background:#f4f8fb}
+.choices label.ok{background:#e7f5ec;border-color:#97ceac}
+.choices label.no{background:#fdecea;border-color:#eda9a2}
+.choices label.rev{background:#fff8dd;border-color:#e8d78a}
+.choices input{margin-top:3px}
+.yn{display:flex;gap:10px;flex-wrap:wrap;margin:0}
+.yn button{font:inherit;font-weight:700;min-width:110px;padding:11px 20px;border-radius:7px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.yn button:hover:not(:disabled){background:#f4f8fb;border-color:var(--blue);color:var(--blue)}
+.yn button.ok{background:#e7f5ec;border-color:#97ceac;color:#1e5b34}
+.yn button.no{background:#fdecea;border-color:#eda9a2;color:#8d2018}
+.yn button.rev{background:#fff8dd;border-color:#e8d78a;color:#6d5a10}
+.yn button:disabled{cursor:default;opacity:1}
+.yn button.dim:disabled{opacity:.4}
+input[type=text].locked,select.locked{background:#f4f6f7;color:#41494e}
+input[type=text].okbox{background:#e7f5ec;border-color:#97ceac}
+input[type=text].nobox{background:#fdecea;border-color:#eda9a2}
+input[type=text].revbox{background:#fff8dd;border-color:#e8d78a}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+button.act{font:inherit;font-weight:600;padding:9px 16px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+button.ghost{background:#fff;color:var(--blue)}
+button.warn{background:#fff;border-color:#d9c46a;color:#6d5a10}
+button:disabled{opacity:.45;cursor:not-allowed}
+.fb{margin-top:10px;padding:11px 13px;border-radius:7px;font-size:.92rem;white-space:pre-wrap}
+.fb.ok{background:#e7f5ec;border:1px solid #97ceac}
+.fb.no{background:#fdecea;border:1px solid #eda9a2}
+.fb.rev{background:#fff8dd;border:1px solid #e8d78a}
+.fbx{display:none}
+.fbx.on{display:block}
+.unitnow{font-size:.78rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#5b666e;margin:12px 0 -4px}
+.done-note{background:#fff8dd;border:1px solid #e8d78a;border-left:5px solid var(--gold);border-radius:7px;padding:11px 13px;font-size:.92rem;margin-top:4px}
+.bar{height:8px;background:#e3e7ea;border-radius:99px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;width:0;background:var(--blue);transition:width .25s}
+.score{font-size:.85rem;color:#5b666e;margin-top:6px}
+.hint{font-size:.82rem;color:#5b666e;margin-top:8px}
+footer{text-align:center;font-size:.8rem;color:#6b757c;padding:8px 0 28px}
+
+/* Applet styles */
+table.tt{border-collapse:collapse;margin:1rem 0;font-family:ui-monospace,SFMono-Regular,monospace}
+.tt th,.tt td{border:1px solid #bbb;padding:1px;text-align:center;min-width:1.9em;height:1.9em;white-space:nowrap}
+.tt th{background:#f3f3f3;font-weight:600}
+th.lab{background:#e9e9e9;font-family:system-ui,sans-serif;font-size:.78rem;padding:2px 6px;white-space:nowrap}
+.sep{border-left:2px solid #333}
+input.c{width:1.7em;height:1.7em;text-align:center;border:0;background:transparent;font:inherit;text-transform:uppercase}
+input.c:focus{background:#fff6b8;outline:2px solid #555}
+input.c[readonly]{pointer-events:none}
+th.avail{background:#d6ecd2}td.av{background:#eaf6e6}
+.pk{cursor:pointer}th.pk:hover{background:#b6dcae}td.pk:hover{background:#d3ebcb}
+th.act{background:#ffe9a8}th.done{background:#e4e4e4;color:#666}
+th.dep{background:#c3dbf5}td.dep{background:#e2eefb}
+th.main{background:#ffd9f0;box-shadow:inset 0 -3px #c9539b}td.mainc{background:#fdeef7}
+td.bad{background:#fbd5d5}
+tr.rowpick td{cursor:pointer}tr.rowpick:hover td{background:#f0e6ff}
+tr.marked td{background:#e8dcff}tr.marked.rowpick:hover td{background:#dfcdff}
+tr.cesel td{background:#ffc98c;box-shadow:inset 0 0 0 1px #d98a2b}
+tr.cesel.rowpick:hover td{background:#ffbb6e}
+.key{font-size:.85em;color:#555;margin:.3rem 0}
+.sw{display:inline-block;width:.85em;height:.85em;vertical-align:-1px;border:1px solid #999;margin-right:.25em}
+button.sel{background:#1a5fb4;color:#fff;border-color:#1a5fb4}
+button.ins{font-family:ui-monospace,monospace;padding:.2rem .5rem;min-width:2.2rem}
+button.gen{background:#2b5f2b;color:#fff;border-color:#2b5f2b}
+#seedbox{width:5rem;text-align:center;font-family:ui-monospace,monospace}
+#genwrap{display:inline}
+fieldset{border:1px solid #d5d5d5;border-radius:6px;padding:.5rem .8rem .7rem;margin:1rem 0;max-width:38rem}
+legend{font-weight:600;font-size:.9rem;padding:0 .3rem}
+fieldset label{display:block;font-size:.88em;color:#333;margin:.12rem 0}
+fieldset label.alt{margin-top:.5rem;padding-top:.5rem;border-top:1px solid #e0e0e0}
+fieldset label.exam{margin-top:.5rem;padding-top:.5rem;border-top:1px solid #e0e0e0;font-size:1em;font-weight:600;color:#8b2018}
+fieldset label.off{color:#999}
+.tag{font-size:.75em;color:#8a6d00;border:1px solid #e0c56a;background:#fdf6e0;border-radius:3px;padding:0 .3em;margin-left:.25em;white-space:nowrap}
+#app_msg{margin:.7rem 0;padding:.55rem .7rem;border-left:3px solid #888;background:#f7f7f7;white-space:pre-wrap}
+#app_msg.err{border-left:3px solid #c0392b;background:#fdeceb;color:#8b2018;font-weight:600;animation:flash .55s}
+#app_msg.win{border-left:3px solid #3f8f33;background:#e8f6e3;font-size:1.08em;font-weight:600}
+@keyframes flash{0%,100%{background:#fdeceb}35%{background:#f7c2bb}}
+#app_warn:not(:empty){margin:.7rem 0;padding:.55rem .7rem;border-left:3px solid #d9a406;background:#fdf6e0}
+table.win th,table.win td{background:#bfe8b4;border-color:#5f9e57;transition:background .4s}
+table.win{animation:pop .5s ease-out}
+@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.04)}100%{transform:scale(1)}}
+#app_final{margin:.8rem 0}#app_final .q{margin:.35rem 0}#app_final select{margin-left:.4rem}
+.defn{background:#f2f6fb;border-left:3px solid #7aa3d0;padding:.5rem .7rem;margin:.5rem 0;font-size:.93em}
+#app_exlabel{margin:.2rem 0 .4rem}
+table.ref{border-collapse:collapse;font-family:ui-monospace,monospace;font-size:.85rem;margin:.1rem 0 .3rem}
+table.ref th,table.ref td{border:1px solid #ccc;padding:1px 6px;text-align:center}
+table.ref th{background:#f0f4f8;font-weight:600}
+#app_ref{margin:-.4rem 0 1rem}#app_ref .hint{margin:0 0 .2rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <h1>Logic &amp; Critical Reasoning Trainer</h1>
+    <p class="sub">LPS 29 / PHIL 29 Critical Reasoning</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="card">
+    <h2>Required Symbol Notation Guide</h2>
+    <table>
+      <thead><tr><th>Connective</th><th>LPS 29 Symbol</th><th>Keyboard Input</th><th>Forbidden Alternatives</th></tr></thead>
+      <tbody>
+        <tr><td>Negation (not)</td><td><code>~</code></td><td>Tilde key (Shift + `)</td><td class="bad">&not;, !</td></tr>
+        <tr><td>Conjunction (and)</td><td><code>&amp;</code></td><td>Ampersand (Shift + 7)</td><td class="bad">&bull;, &and;, *</td></tr>
+        <tr><td>Disjunction (or)</td><td><code>v</code></td><td>Lowercase letter v</td><td class="bad">&or;, +</td></tr>
+        <tr><td>Conditional (if&hellip; then&hellip;)</td><td><code>--&gt;</code></td><td>Two dashes + greater-than</td><td class="bad">&rarr;, &sup;, &rArr;</td></tr>
+        <tr><td>Biconditional (if and only if)</td><td><code>&lt;-&gt;</code></td><td>Less-than + two dashes + greater-than</td><td class="bad">&harr;, &equiv;</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Question Module</h2>
+    <select id="week" aria-label="Select weekly module">
+      <option value="">&mdash; Select a weekly module to start practicing &mdash;</option>
+    </select>
+    <div id="panel" style="margin-top:16px"></div>
+  </section>
+
+  <footer>Logic &amp; Critical Reasoning Trainer &mdash; LPS 29</footer>
+</div>
+
+<script>
+var UNITS = [
+ {label:"Unit 1: Informal Arguments (Weeks 1-3)", weeks:[0,1,2]},
+ {label:"Unit 2: Propositional Logic (Weeks 4-6)", weeks:[3,4,5,6]},
+ {label:"Unit 3: Propositional Calculus (Weeks 7-10)", weeks:[7,8,9,10]}
+];
+
+var IND_DED = ["Inductive","Deductive"];
+
+var FALLACIES = [
+ "Ad Hominem",
+ "Affirming the Consequent",
+ "Appeal to Ignorance",
+ "Argument by Authority",
+ "Base Rate Fallacy",
+ "Circular Reasoning (Begging the Question)",
+ "Conjunctive Fallacy",
+ "Denying the Antecedent",
+ "Fallacy of Ambiguity",
+ "False Cause (Post Hoc Ergo Propter Hoc)",
+ "Gambler's Fallacy",
+ "Guilt by Association",
+ "Hasty Generalization",
+ "Sorites Argument",
+ "Straw Man",
+ "Tu Quoque",
+ "Vested Interest"
+];
+
+var MODULES = [
+
+/* ==================== WEEK 1 ==================== */
+{t:"Week 1: Standard Form & 3-Step Argument Structure Analysis", stepwise:true, q:[
+ {kind:"def", dir:"Given the term — choose the correct definition",
+  steps:[{p:"In this course, an argument is defined as a set of statements with how many essential elements?",
+    c:["One: a conclusion","Two: a premise and a conclusion","Three: premises, a conclusion, and a claim about the connection between them","Four: premises, conclusion, indicator words, and a truth table"],a:2,
+    e:"An argument is a set of statements with three elements: (1) one or more premises providing support, (2) one conclusion following from or supported by the premises, and (3) a claim about the connection between them."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“A statement offered in support of another statement.”\n\nWhich term is being defined?",
+    c:["Conclusion","Inference","Premise","Contingency"],a:2,
+    e:"A premise is a statement offered as support. The statement it supports is the conclusion."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“Words such as ‘since,’ ‘because,’ ‘so’ and ‘therefore,’ which signal that a statement functions as a premise or as a conclusion.”\n\nWhich term is being defined?",
+    c:["Truth-functional operators","Indicator words","Implicit premises","Substitution instances"],a:1,
+    e:"Premise indicators include “since,” “because,” “for”; conclusion indicators include “so,” “therefore,” “hence.” They are clues, not guarantees."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“A premise that an argument requires in order to work, but which the passage never actually states.”\n\nWhich term is being defined?",
+    c:["A conclusion indicator","An implicit premise","A counterexample","A derived rule"],a:1,
+    e:"Study-guide example: “I can't help you if I don't know what's wrong — and I just don't know what's wrong,” whose conclusion, “I can't help you,” is itself left implicit."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“A passage that reports facts, or explains an already-accepted fact, but makes no claim that anything supports anything else.”\n\nWhich verdict applies?",
+    c:["An invalid argument","An unsound argument","Not an argument at all","A circular argument"],a:2,
+    e:"Without an inferential claim there is no argument — only a report, description, or explanation."}]},
+ {kind:"analysis", passage:"You should take the position because it offers a great salary and you will gain valuable experience.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"Two claims are being offered in support of a third, so the passage makes an inferential claim."},
+   {txt:1,p:"Type the indicator word (or words) used in this passage.",accept:["because"],show:"Because", e:"“Because” is a premise indicator: what follows it provides support."},
+   {p:"What is the conclusion?",c:["It offers a great salary","You will gain valuable experience","You should take the position","Taking the position guarantees career success"],a:2, e:"The conclusion is the main statement being supported."},
+   {p:"Which statement or statements are the premises?",
+    c:["Statement “It offers a great salary” is the only premise","Statement “You will gain valuable experience” is the only premise","Statement “It offers a great salary” and statement “You will gain valuable experience” are both premises","Statement “You will gain valuable experience” and statement “You should take the position” are both premises"],a:2,
+    e:"Standard form:\n1. It offers a great salary.\n2. You will gain valuable experience.\n————————————\nC. You should take the position."}
+  ]},
+ {kind:"analysis", passage:"We cannot go to the beach if it rains on Saturday — and it is definitely going to rain on Saturday.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"Yes. Two claims are offered as support for an unstated (implicit) conclusion."},
+   {txt:1,p:"Type the indicator word (or words) used in this passage. If there are none, type: none",accept:["none","no indicator words","there are none"],show:"None", e:"There are no indicator words here."},
+   {p:"What is the conclusion?",c:["We cannot go to the beach if it rains on Saturday","It is definitely going to rain on Saturday","We cannot go to the beach on Saturday (implicit)","Saturday will be a rainy day"],a:2, e:"The conclusion is implicit: We cannot go to the beach on Saturday."},
+   {p:"Which statement or statements are the premises?",
+    c:["Statement “We cannot go to the beach if it rains on Saturday” is the only premise","Statement “It is definitely going to rain on Saturday” is the only premise","Statement “We cannot go to the beach if it rains on Saturday” and statement “It is definitely going to rain on Saturday” are both premises","Statement “It is definitely going to rain on Saturday” and statement “We cannot go to the beach on Saturday” are both premises"],a:2,
+    e:"Standard form:\n1. We cannot go to the beach if it rains on Saturday.\n2. It is definitely going to rain on Saturday.\n————————————\nC. (Implicit) We cannot go to the beach on Saturday."}
+  ]},
+ {kind:"analysis", passage:"The lecture begins at 10:00 a.m. in Social Science Hall 100, and the required reading is posted online.",
+  steps:[{yn:1,p:"Is this passage an argument?",a:1, e:"Two facts are simply reported side by side."}]},
+ {kind:"analysis", passage:"All LPS 29 students study logic. Maria is an LPS 29 student. So Maria studies logic.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"One claim here is inferred from the other two."},
+   {txt:1,p:"Type the indicator word (or words) used in this passage.",accept:["so"],show:"So", e:"“So” is a conclusion indicator."},
+   {p:"What is the conclusion?",c:["All LPS 29 students study logic","Maria is an LPS 29 student","Maria studies logic","Logic is required"],a:2, e:"The statement introduced by the conclusion indicator is the conclusion."},
+   {p:"Which statement or statements are the premises?",
+    c:["Statement “All LPS 29 students study logic” is the only premise","Statement “Maria is an LPS 29 student” is the only premise","Statement “All LPS 29 students study logic” and statement “Maria is an LPS 29 student” are both premises","Statement “Maria is an LPS 29 student” and statement “Maria studies logic” are both premises"],a:2,
+    e:"Standard form:\n1. All LPS 29 students study logic.\n2. Maria is an LPS 29 student.\n————————————\nC. Maria studies logic."}
+  ]},
+ {kind:"analysis", passage:"The window broke because a branch fell on it during last night's storm.",
+  steps:[{yn:1,p:"Is this passage an argument?",a:1, e:"That is an explanation, not an argument."}]},
+ {kind:"analysis", passage:"Either the file was deleted or it was moved to the archive. It was not deleted. Therefore it was moved to the archive.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"A claim is inferred from the two statements."},
+   {txt:1,p:"Type the indicator word (or words) used in this passage.",accept:["therefore"],show:"Therefore", e:"“Therefore” is a conclusion indicator."},
+   {p:"What is the conclusion?",c:["Either the file was deleted or it was moved to the archive","It was not deleted","It was moved to the archive","The archive is full"],a:2, e:"The statement following the indicator is the conclusion."},
+   {p:"Which statement or statements are the premises?",
+    c:["Statement “Either the file was deleted or it was moved to the archive” is the only premise","Statement “It was not deleted” is the only premise","Statement “Either the file was deleted or it was moved to the archive” and statement “It was not deleted” are both premises","Statement “It was not deleted” and statement “It was moved to the archive” are both premises"],a:2,
+    e:"Standard form:\n1. Either the file was deleted or it was moved to the archive.\n2. It was not deleted.\n————————————\nC. It was moved to the archive."}
+  ]},
+ {kind:"analysis", passage:"Tuition should not be raised again this year. Enrolment is already falling, and the campus has an operating surplus.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"Two reasons are offered in support of a recommendation."},
+   {txt:1,p:"Type the indicator word (or words) used in this passage. If there are none, type: none",accept:["none","no indicator words","there are none"],show:"None", e:"No indicator words appear."},
+   {p:"What is the conclusion?",c:["Enrolment is already falling","The campus has an operating surplus","Tuition should not be raised again this year","Tuition is too high"],a:2, e:"The first sentence is the conclusion."},
+   {p:"Which statement or statements are the premises?",
+    c:["Statement “Enrolment is already falling” is the only premise","Statement “Enrolment is already falling” and statement “The campus has an operating surplus” are both premises","Statement “Tuition should not be raised again this year” and statement “Enrolment is already falling” are both premises","Neither statement is a premise"],a:1,
+    e:"Standard form:\n1. Enrolment is already falling.\n2. The campus has an operating surplus.\n————————————\nC. Tuition should not be raised again this year."}
+  ]},
+ {kind:"analysis", passage:"Housing costs are soaring, and so young professionals are leaving the city. Moreover, a shrinking workforce reduces local business revenues. Thus, the city needs to subsidize affordable housing.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"This complex passage contains multiple steps of inference leading to an ultimate conclusion."},
+   {txt:1,p:"Type the primary indicator word (or words) used to introduce the ultimate conclusion.",accept:["thus"],show:"Thus", e:"“Thus” introduces the final/main conclusion, while “and so” introduces the intermediate conclusion."},
+   {p:"What is the intermediate conclusion (which acts as both a conclusion for a sub-argument and a premise for the main argument)?",c:["Housing costs are soaring","Young professionals are leaving the city","A shrinking workforce reduces local business revenues","The city needs to subsidize affordable housing"],a:1, e:"“Young professionals are leaving the city” is inferred from soaring housing costs, and then used to support the final conclusion."},
+   {p:"What is the ultimate conclusion of this complex argument?",
+    c:["Housing costs are soaring","Young professionals are leaving the city","A shrinking workforce reduces local business revenues","The city needs to subsidize affordable housing"],a:3,
+    e:"Standard form:\n1. Housing costs are soaring.\n2. (Intermediate Conclusion) Young professionals are leaving the city. [from 1]\n3. A shrinking workforce reduces local business revenues.\n————————————\nC. The city needs to subsidize affordable housing. [from 2, 3]"}
+  ]},
+ {kind:"analysis", passage:"Every student who fails the prerequisite must retake the course. Alex failed the prerequisite, so Alex must retake the course. Therefore, Alex cannot enroll in Advanced Logic this term, since Advanced Logic meets at the same time as the course.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"Yes, it is a complex argument with a sub-argument leading to a main conclusion."},
+   {txt:1,p:"Type the indicator word that introduces the main conclusion.",accept:["therefore"],show:"Therefore", e:"“Therefore” marks the final conclusion, while “so” marks an intermediate conclusion and “since” marks a premise."},
+   {p:"What is the intermediate conclusion in this argument?",c:["Every student who fails the prerequisite must retake the course","Alex failed the prerequisite","Alex must retake the course","Alex cannot enroll in Advanced Logic this term"],a:2, e:"“Alex must retake the course” is derived from claims 1 & 2, and then used as a stepping stone."},
+   {p:"What is the main (ultimate) conclusion?",
+    c:["Alex failed the prerequisite","Alex must retake the course","Alex cannot enroll in Advanced Logic this term","Advanced Logic meets at the same time as the course"],a:2,
+    e:"Standard form:\n1. Every student who fails the prerequisite must retake the course.\n2. Alex failed the prerequisite.\n3. (Intermediate Conclusion) Alex must retake the course. [from 1, 2]\n4. Advanced Logic meets at the same time as the course.\n————————————\nC. Alex cannot enroll in Advanced Logic this term. [from 3, 4]"}
+  ]},
+ {kind:"analysis", passage:"Solar panel installation costs have plummeted by 50% over the last decade. Consequently, solar energy is now cheaper than fossil fuels in most areas. It follows that cities should mandate solar installations on new developments.",
+  steps:[
+   {yn:1,p:"Is this passage an argument?",a:0, e:"Yes, this argument builds an intermediate step to reach a policy recommendation."},
+   {txt:1,p:"Type the indicator phrase/word introducing the ultimate conclusion.",accept:["it follows that","it follows"],show:"It follows that", e:"“It follows that” marks the ultimate conclusion, whereas “consequently” marks an intermediate conclusion."},
+   {p:"Which statement functions as an intermediate conclusion?",c:["Solar panel installation costs have plummeted by 50% over the last decade","Solar energy is now cheaper than fossil fuels in most areas","Cities should mandate solar installations on new developments","Fossil fuels are becoming obsolete"],a:1, e:"“Solar energy is now cheaper than fossil fuels in most areas” is inferred from cost reductions and serves as support for the city mandate proposal."},
+   {p:"Which statement is the final (ultimate) conclusion?",
+    c:["Solar panel installation costs have plummeted by 50% over the last decade","Solar energy is now cheaper than fossil fuels in most areas","Cities should mandate solar installations on new developments","New developments will use 100% renewable energy"],a:2,
+    e:"Standard form:\n1. Solar panel installation costs have plummeted by 50% over the last decade.\n2. (Intermediate Conclusion) Solar energy is now cheaper than fossil fuels in most areas. [from 1]\n————————————\nC. Cities should mandate solar installations on new developments. [from 2]"}
+  ]}
+]},
+
+/* ==================== WEEK 2 ==================== */
+{t:"Week 2: Deductive vs. Inductive Arguments, Validity, Soundness & Relevance", stepwise:true, q:[
+ {kind:"def", dir:"Given the term — choose the correct definition",
+  steps:[{p:"Which of the following is the correct definition of a DEDUCTIVE ARGUMENT?",
+    c:["An argument whose premises provide probability or support for its conclusion, without guaranteeing it","An argument claiming that the truth of its premises guarantees the truth of its conclusion","An argument whose premises are all in fact true","An argument whose conclusion is true in every possible world"],a:1,
+    e:"A deductive argument claims the truth of its premises guarantees the truth of its conclusion."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“An argument claiming that the premises provide probability or support for the conclusion rather than a guarantee.”\n\nWhich term is being defined?",
+    c:["Deductive argument","Sound argument","Inductive argument","Valid argument form"],a:2,
+    e:"That is the definition of an inductive argument."}]},
+ {kind:"def", dir:"Given the term — choose the correct definition",
+  steps:[{p:"Which of the following is the correct definition of DEDUCTIVELY VALID?",
+    c:["It is impossible for all the premises to be true and the conclusion false","All the premises are true and the conclusion is true","The premises make the conclusion highly probable","The conclusion is a tautology"],a:0,
+    e:"An argument form is deductively valid iff it is impossible for all premises to be true and the conclusion false."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“An argument that is deductively valid AND has all true premises.”\n\nWhich term is being defined?",
+    c:["A strong argument","A cogent argument","A sound argument","A tautologous argument"],a:2,
+    e:"An argument is sound iff it is deductively valid and its premises are all true."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“Reasoning in which adding new premises can weaken or overturn a previously supported conclusion.”\n\nWhich term is being defined?",
+    c:["Monotonic reasoning","Non-monotonic reasoning","Circular reasoning","Deductive reasoning"],a:1,
+    e:"Non-monotonic reasoning."}]},
+ {kind:"def", dir:"Given the term — choose the correct definition",
+  steps:[{p:"Which of the following states the RELEVANCE requirement on a good inductive argument's premise set?",
+    c:["It contains only premises true in every possible world","It contains all known relevant sentences","It contains exactly two premises","It contains no conditional statements"],a:1,
+    e:"A good inductive argument's premise set must contain all known relevant sentences."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“The verdict you may safely reach about an argument whose conclusion is false in all possible worlds.”\n\nWhich verdict is being described?",
+    c:["The argument is valid","The argument is not sound","The argument is inductively strong","The argument is a theorem"],a:1,
+    e:"The argument cannot be both valid and true-premised — it is not sound."}]},
+ {kind:"def", dir:"Given the term — choose the correct definition",
+  steps:[{p:"Which of the following correctly describes the EVALUATIVE VOCABULARY for each kind of argument?",
+    c:["Deductive arguments are strong or weak; inductive arguments are valid or invalid","Deductive arguments are valid or invalid; inductive arguments are strong or weak","Both kinds are valid or invalid","Both kinds are sound or unsound"],a:1,
+    e:"Deductive arguments are valid or invalid; inductive arguments are strong or weak."}]},
+ {kind:"classify", passage:"Los Angeles is going to lose if their best player injures his knee. The reason is that if he is injured and he plays in the game, he won't play well and Los Angeles will lose. And if he is injured and he doesn't play in the game, his replacement won't play well and Los Angeles will lose. So if their best player injures his knee, Los Angeles will lose whether he plays or doesn't play.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:1, e:"Deductive."}]},
+ {kind:"classify", passage:"Every raven that ornithologists have observed so far has been black. So the next raven observed will be black.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:0, e:"Inductive."}]},
+ {kind:"classify", passage:"All sound arguments are valid. This argument is not valid. Therefore this argument is not sound.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:1, e:"Deductive."}]},
+ {kind:"classify", passage:"In a survey of 1,200 randomly selected UCI undergraduates, 68% reported studying at the library at least once a week. So roughly two-thirds of all UCI undergraduates study at the library weekly.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:0, e:"Inductive."}]},
+ {kind:"classify", passage:"If it rained last night, then the field is wet. It rained last night. Therefore the field is wet.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:1, e:"Deductive."}]},
+ {kind:"classify", passage:"The last four times this professor gave a midterm, it included a proof question. So this quarter's midterm will probably include a proof question too.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:0, e:"Inductive."}]},
+ {kind:"classify", passage:"No one has ever proved that this conjecture is false. Therefore the conjecture is true.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:0, e:"Inductive — and fallacious."}]},
+ {kind:"classify", passage:"Every member of the committee is either a faculty member or a student. Dr. Osei is on the committee and is not a student. So Dr. Osei is a faculty member.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:1, e:"Deductive."}]},
+ {kind:"classify", passage:"This water sample from the reservoir contains no detectable lead. So the reservoir water is safe to drink.",
+  steps:[{p:"Is this argument inductive or deductive?",c:IND_DED,a:0, e:"Inductive."}]},
+ {kind:"analysis", passage:"You should wear sunscreen today since you burn easily and the UV index is very high.",
+  steps:[
+   {txt:1,p:"Step 1 (Standard Form): Type the indicator word used in this passage.",accept:["since"],show:"Since", e:"“Since” is a premise indicator."},
+   {p:"Step 2 (Standard Form): What is the conclusion?",c:["You burn easily","The UV index is very high","You should wear sunscreen today","Sunscreen prevents sunburns"],a:2, e:"The conclusion being supported is “You should wear sunscreen today.”"},
+   {p:"Step 3 (Standard Form): Which statements are the premises?",
+    c:["Statement “You burn easily” is the only premise","Statement “The UV index is very high” is the only premise","Statements “You burn easily” and “The UV index is very high” are both premises","Neither statement is a premise"],a:2,
+    e:"Standard form:\n1. You burn easily.\n2. The UV index is very high.\n————————————\nC. You should wear sunscreen today."},
+   {p:"Step 4 (Evaluation): Is this argument inductive or deductive?",c:IND_DED,a:0, e:"Inductive — the premises provide strong probability/support, but do not strictly guarantee that you must wear sunscreen."}
+  ]},
+ {kind:"analysis", passage:"If interest rates rise, mortgage payments will increase. Interest rates are rising, so mortgage payments are going to increase.",
+  steps:[
+   {txt:1,p:"Step 1 (Standard Form): Type the indicator word used in this passage.",accept:["so"],show:"So", e:"“So” is a conclusion indicator."},
+   {p:"Step 2 (Standard Form): What is the conclusion?",c:["If interest rates rise, mortgage payments will increase","Interest rates are rising","Mortgage payments are going to increase","Mortgages are expensive"],a:2, e:"“Mortgage payments are going to increase” is the conclusion."},
+   {p:"Step 3 (Standard Form): Which statements are the premises?",
+    c:["Statement “If interest rates rise, mortgage payments will increase” is the only premise","Statement “Interest rates are rising” is the only premise","Statements “If interest rates rise, mortgage payments will increase” and “Interest rates are rising” are both premises","Neither statement is a premise"],a:2,
+    e:"Standard form:\n1. If interest rates rise, mortgage payments will increase.\n2. Interest rates are rising.\n————————————\nC. Mortgage payments are going to increase."},
+   {p:"Step 4 (Evaluation): Is this argument inductive or deductive?",c:IND_DED,a:1, e:"Deductive — the argument claims the truth of the premises strictly guarantees the truth of the conclusion (Modus Ponens)."}
+  ]},
+ {kind:"analysis", passage:"Maya is a student at UCI, so she must have a campus ID card.",
+  steps:[
+   {txt:1,p:"Step 1 (Standard Form): Type the indicator word used in this passage.",accept:["so"],show:"So", e:"“So” is a conclusion indicator."},
+   {p:"Step 2 (Standard Form): What is the conclusion?",c:["Maya is a student at UCI","Maya must have a campus ID card","Every UCI student has a campus ID card","UCI requires ID cards"],a:1, e:"The conclusion is “Maya must have a campus ID card.”"},
+   {p:"Step 3 (Standard Form): To structure this argument in standard form, an unstated (implicit) premise is needed. Which is the implicit premise?",
+    c:["Maya studies logic","Every UCI student has a campus ID card","Campus ID cards are free","UCI is a university"],a:1,
+    e:"Standard form:\n1. Maya is a UCI student.\n2. (Implicit Premise) Every UCI student has a campus ID card.\n————————————\nC. Maya must have a campus ID card."},
+   {p:"Step 4 (Evaluation): Is this argument inductive or deductive?",c:IND_DED,a:1, e:"Deductive — when supplemented with its implicit premise (“Every UCI student has a campus ID card”), the premises guarantee the conclusion."}
+  ]}
+]},
+
+/* ==================== WEEK 3 ==================== */
+{t:"Week 3: Informal Fallacies (Relevance, Semantic, Deductive, Inductive)", stepwise:true, q:[
+ {kind:"def", dir:"Given the term — choose the correct definition",
+  steps:[{p:"Which of the following is the course definition of a FALLACY?",
+    c:["A false statement","A faulty argument, or a faulty kind of argument","An invalid truth table","A premise that is left unstated"],a:1,
+    e:"A fallacy is a faulty argument or a faulty kind of argument."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“The four families into which this course sorts the official fallacies.”\n\nWhich list is correct?",
+    c:["Relevance, Semantic, Deductive, Inductive","Formal, Informal, Verbal, Statistical","Ad hominem, Ambiguity, Authority, Association","Valid, Invalid, Strong, Weak"],a:0,
+    e:"The four kinds are fallacies of Relevance, Semantic, Deductive, and Inductive."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“A fallacy in which a word or phrase shifts meaning, or is grammatically unclear, in the course of the argument.”\n\nWhich fallacy is being defined?",
+    c:["Straw Man","Fallacy of Ambiguity","Hasty Generalization","Vested Interest"],a:1,
+    e:"The Fallacy of Ambiguity is the course's semantic fallacy."}]},
+ {kind:"def", dir:"Given the term — choose the correct definition",
+  steps:[{p:"Which of the following correctly defines the SORITES ARGUMENT?",
+    c:["Attacking a distorted version of the opponent's position","Exploiting a vague predicate through a chain of tiny, individually harmless steps to reach an absurd conclusion","Concluding a claim is true because it has not been disproved","Treating a conjunction as more probable than one of its conjuncts"],a:1,
+    e:"The Sorites argument trades on vagueness."}]},
+ {kind:"def", dir:"Given the definition — choose the correct term",
+  steps:[{p:"“Ignoring the underlying frequency of a condition in the population when interpreting the result of a test.”\n\nWhich fallacy is being defined?",
+    c:["Gambler's Fallacy","Conjunctive Fallacy","Base Rate Fallacy","False Cause"],a:2,
+    e:"The Base Rate Fallacy."}]},
+ {kind:"fallacy", passage:"You can't trust Dr. Vance's argument for the new tax policy — she was cited for a parking violation last year.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:0, e:"Ad Hominem."}]},
+ {kind:"fallacy", passage:"Of course Senator Ruiz says the drug is safe. Her re-election campaign is funded by the company that makes it.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:16, e:"Vested Interest."}]},
+ {kind:"fallacy", passage:"My opponent proposes trimming the defence budget by three percent. Apparently he wants to leave the country completely defenceless.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:14, e:"Straw Man."}]},
+ {kind:"fallacy", passage:"You keep telling me I should quit smoking, but you smoked a pack a day for twenty years. So your argument is worthless.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:15, e:"Tu Quoque."}]},
+ {kind:"fallacy", passage:"You shouldn't take his economic views seriously — he belongs to the same private club as a man convicted of fraud.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:11, e:"Guilt by Association."}]},
+ {kind:"fallacy", passage:"Nobody has ever demonstrated that this supplement fails to work. So it must work.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:2, e:"Appeal to Ignorance."}]},
+ {kind:"fallacy", passage:"A famous film actor endorses this brand of vitamins in a commercial, so they must be effective.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:3, e:"Argument by Authority."}]},
+ {kind:"fallacy", passage:"If it rained overnight, the streets are wet. The streets are wet. So it rained overnight.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:1, e:"Affirming the Consequent."}]},
+ {kind:"fallacy", passage:"If Priya studies, she will pass the exam. Priya did not study. So Priya will not pass the exam.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:7, e:"Denying the Antecedent."}]},
+ {kind:"fallacy", passage:"We know the manual is reliable because everything printed in it is accurate. And we know everything printed in it is accurate because the manual is reliable.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:5, e:"Circular Reasoning (Begging the Question)."}]},
+ {kind:"fallacy", passage:"I met two rude drivers during my afternoon in Boston. People in Boston are rude.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:12, e:"Hasty Generalization."}]},
+ {kind:"fallacy", passage:"This roulette wheel has come up red five spins in a row. Black is due on the next spin.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:10, e:"Gambler's Fallacy."}]},
+ {kind:"fallacy", passage:"Ever since the new mayor took office in March, my allergies have been much worse. The mayor's policies are making me sick.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:9, e:"False Cause (Post Hoc Ergo Propter Hoc)."}]},
+ {kind:"fallacy", passage:"Linda is thoughtful and politically engaged. So it is more likely that Linda is a bank teller and an activist than that Linda is simply a bank teller.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:6, e:"Conjunctive Fallacy."}]},
+ {kind:"fallacy", passage:"This screening test is 95% accurate and your result came back positive. Since the disease affects only one person in ten thousand, you almost certainly have it.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:4, e:"Base Rate Fallacy."}]},
+ {kind:"fallacy", passage:"One grain of sand is not a heap. Adding a single grain to something that is not a heap never makes it a heap. Therefore there are no heaps of sand.",
+  steps:[{sel:1,p:"Identify the fallacy committed in the following passage:",a:13, e:"Sorites Argument."}]}
+]},
+
+/* ==================== WEEK 4 ==================== */
+{t:"Week 4: Translating English Statements into Propositional Symbolism", q:[
+ /* SECTION 1: CONCEPTUAL QUESTIONS */
+ {p:"Which of the following defines a SIMPLE (or ATOMIC) sentence in propositional logic?",
+  c:["A sentence containing no connectives or operators","A sentence that is always true","A sentence with exactly two logical operators","A sentence joined by 'and'"],a:0,e:"A simple (atomic) sentence contains no logical operators/connectives."},
+ {p:"Which of the following defines a COMPOUND sentence in propositional logic?",
+  c:["A sentence composed of one or more simple sentences joined or modified by logical connectives","A sentence with at least three sentence letters","A conditional whose antecedent is false","Any sentence expressed in standard form"],a:0,e:"A compound sentence contains one or more logical operators applied to simpler sentences."},
+ {p:"What is a TRUTH-FUNCTIONAL OPERATOR?",
+  c:["An operator where the truth value of the compound statement is completely determined by the truth values of its component statements","An operator that makes every sentence true","A connector used only in inductive arguments","An informal fallacy indicator"],a:0,e:"An operator is truth-functional if the truth value of the compound sentence depends solely on the truth values of its constituent parts."},
+ {p:"In the formula ~((P & Q) --> R), what is the MAJOR OPERATOR?",
+  c:["The negation (~)","The conjunction (&)","The conditional (-->)","There is no major operator"],a:0,e:"The leading negation governs the entire bracketed formula, making it the major operator."},
+ {p:"In the expression (P v Q) & (R --> S), what is the MAJOR OPERATOR?",
+  c:["The disjunction (v)","The conjunction (&)","The conditional (-->)","The negation (~)"],a:1,e:"The conjunction (&) joins the two main parentheses and serves as the outermost (major) operator."},
+ {p:"Which of the following expressions is NOT a well-formed formula (WFF) in propositional logic?",
+  c:["P & v Q","~(P --> Q)","((P & Q) v R)","(P <-> ~Q)"],a:0,e:"'P & v Q' places two binary operators adjacent to each other without a sentence letter between them, violating syntax rules."},
+
+ /* SECTION 2: REFERENCE TRANSLATIONS */
+ {p:"Translate: “P only if Q.”",txt:1,a:["P-->Q","P --> Q"],e:"'P only if Q' means Q is a necessary condition for P, so P is the antecedent: P --> Q."},
+ {p:"Translate: “P if Q.”",txt:1,a:["Q-->P","Q --> P"],e:"'P if Q' means Q is a sufficient condition for P, so Q is the antecedent: Q --> P."},
+ {p:"Translate: “P unless Q.”",txt:1,a:["~Q-->P","~Q --> P","PvQ","P v Q"],e:"'P unless Q' translates to ~Q --> P (or equivalently, P v Q)."},
+ {p:"Translate: “Neither P nor Q.”",txt:1,a:["~(PvQ)","~(P v Q)","~P&~Q","~P & ~Q"],e:"'Neither P nor Q' means it is not the case that either holds: ~(P v Q), or equivalently ~P & ~Q."},
+ {p:"Translate: “Not both P and Q.”",txt:1,a:["~(P&Q)","~(P & Q)","~(Q&P)","~(Q & P)"],e:"'Not both P and Q' negates the entire conjunction: ~(P & Q)."},
+ {p:"Translate: “P provided that Q.”",txt:1,a:["Q-->P","Q --> P"],e:"'Provided that' introduces a sufficient condition (the antecedent): Q --> P."},
+ {p:"Translate: “P is a necessary condition for Q.”",txt:1,a:["Q-->P","Q --> P"],e:"A necessary condition acts as the consequent, so Q --> P."},
+ {p:"Translate: “P is a sufficient condition for Q.”",txt:1,a:["P-->Q","P --> Q"],e:"A sufficient condition acts as the antecedent, so P --> Q."},
+ {p:"Translate: “P although Q.”",txt:1,a:["P&Q","P & Q"],e:"In propositional logic, 'although', 'but', and 'however' function as conjunctions (&)."},
+ {p:"Translate: “P if and only if Q.”",txt:1,a:["P<->Q","P <-> Q"],e:"'If and only if' marks a biconditional: P <-> Q."},
+
+ /* SECTION 3: EXTENDED PRACTICE TRANSLATIONS (SINGLE SENTENCES) */
+ {p:"Translate: “We will go to the DESERT if and only if we don't go to the OCEAN.”",txt:1,a:["D<->~O","D <-> ~O"],e:"The biconditional: D <-> ~O."},
+ {p:"Translate: “I will arrive with JOHN if I am LATE or come with BILL.”",txt:1,a:["(LvB)-->J","(L v B) --> J","(LvB)->J"],e:"The 'if' clause is the antecedent: (L v B) --> J."},
+ {p:"Translate: “There will be an oil SHORTAGE if we neither discover new RESERVES nor increase CONSERVATION.”",txt:1,a:["~(RvC)-->S","~(R v C) --> S","(~R&~C)-->S","(~R & ~C) --> S"],e:"'Neither... nor' gives ~(R v C) as the antecedent: ~(R v C) --> S."},
+ {p:"Translate: “If it RAINS and the WIND blows, we will CANCEL the match.”",txt:1,a:["(R&W)-->C","(R & W) --> C"],e:"The conjunction of rain and wind forms the antecedent: (R & W) --> C."},
+ {p:"Translate: “ALICE will pass only if she STUDIES and TAKES the test.”",txt:1,a:["A-->(S&T)","A --> (S & T)"],e:"'Only if' introduces the consequent conjunction: A --> (S & T)."},
+ {p:"Translate: “Neither BOB nor CAROL will attend unless DANIEL attends.”",txt:1,a:["~D-->~(BvC)","~D --> ~(B v C)","~D-->(~B&~C)","~D --> (~B & ~C)","~(B v C) v D","~(BvC)vD"],e:"'Unless' is translated as a disjunction, and 'neither B nor C' gives ~(B v C)."},
+ {p:"Translate: “It is false that both EVALUATION is complete and RESULTS are published.”",txt:1,a:["~(E&R)","~(E & R)"],e:"Negation of a conjunction: ~(E & R)."},
+ {p:"Translate: “EVALUATION is not complete and RESULTS are not published.”",txt:1,a:["~E&~R","~E & ~R"],e:"Conjunction of two negations: ~E & ~R."},
+ {p:"Translate: “If the ALARM sounds, then either the FIRE started or the TEST is running.”",txt:1,a:["A-->(FvT)","A --> (F v T)"],e:"The conditional with a disjunctive consequent: A --> (F v T)."},
+ {p:"Translate: “Grant will get the SCHOLARSHIP provided that his GRADES improve and he completes the APPLICATION.”",txt:1,a:["(G&A)-->S","(G & A) --> S"],e:"'Provided that' introduces the antecedent conjunction (G & A) --> S."},
+ {p:"Translate: “You will PASS the course if you HAND in homework, but not if you SKIP the exam.”",txt:1,a:["(H-->P)&(S-->~P)","(H --> P) & (S --> ~P)"],e:"Conjunction of two conditionals: (H --> P) & (S --> ~P)."},
+ {p:"Translate: “Either TRAIN service is restored or BUSES will run, provided that FUNDING is approved.”",txt:1,a:["F-->(TvB)","F --> (T v B)"],e:"'Provided that' makes funding the antecedent for the disjunction: F --> (T v B)."},
+ {p:"Translate: “The ACCIDENT will occur unless SPEED is reduced and BRAKES are applied.”",txt:1,a:["~(S&B)-->A","~(S & B) --> A","A v (S & B)","Av(S&B)"],e:"'Unless' is translated as a disjunction, and the conjunction of speed reduction and braking is (S & B)."},
+ {p:"Translate: “It is not the case that if the SUN shines, then it will RAIN.”",txt:1,a:["~(S-->R)","~(S --> R)"],e:"Negation of an entire conditional statement: ~(S --> R)."},
+ {p:"Translate: “P and Q are both necessary for R.”",txt:1,a:["R-->(P&Q)","R --> (P & Q)"],e:"Necessary conditions form the consequent conjunction: R --> (P & Q)."},
+ {p:"Translate: “Either P or Q is sufficient for R.”",txt:1,a:["(PvQ)-->R","(P v Q) --> R"],e:"Sufficient conditions form the antecedent disjunction: (P v Q) --> R."},
+
+ /* SECTION 4: ARGUMENT TRANSLATIONS (ARGUMENTS WITH TRICKY PHRASES) */
+ {p:"Which of the following is the correct symbolization of this argument?\n\n“You will pass the EXAM only if you STUDY. You STUDY. Therefore, you will pass the EXAM.”\n(E = pass exam, S = study)",
+  c:["E --> S, S ⊦ E","S --> E, S ⊦ E","E --> S, E ⊦ S","~(E & S), S ⊦ E"],a:0,
+  e:"'Pass only if study' translates Premise 1 to E --> S. Premise 2 is S. Conclusion is E. (Note: this is the fallacy of Affirming the Consequent)."},
+ {p:"Which of the following is the correct symbolization of this argument?\n\n“The GAME will be played unless it RAINS. It is not RAINING. Therefore, the GAME will be played.”\n(G = game played, R = rains)",
+  c:["G v R, ~R ⊦ G","R --> ~G, R ⊦ ~G","G v ~R, ~R ⊦ G","~G v R, ~R ⊦ G"],a:0,
+  e:"'Game played unless rain' translates Premise 1 to G v R. Premise 2 is ~R. Conclusion is G."},
+ {p:"Which of the following is the correct symbolization of this argument?\n\n“Neither ALICE nor BOB will attend the party. If ALICE does not attend, then CAROL will host. Therefore, CAROL will host.”\n(A = Alice attends, B = Bob attends, C = Carol hosts)",
+  c:["~(A v B), ~A --> C ⊦ C","~A & ~B, C --> ~A ⊦ C","~(A & B), ~A --> C ⊦ C","~(A v B), A --> ~C ⊦ C"],a:0,
+  e:"'Neither Alice nor Bob' translates Premise 1 to ~(A v B) [or ~A & ~B]. Premise 2 is ~A --> C. Conclusion is C."},
+ {p:"Which of the following is the correct symbolization of this argument?\n\n“Passing the MIDTERM is a necessary condition for passing the COURSE. Student passed the COURSE. Therefore, student passed the MIDTERM.”\n(M = pass midterm, C = pass course)",
+  c:["C --> M, C ⊦ M","M --> C, C ⊦ M","C --> M, M ⊦ C","~(C & M), M ⊦ C"],a:0,
+  e:"'Midterm is necessary for course' means C --> M. Premise 2 is C. Conclusion is M. (Valid Modus Ponens)."},
+ {p:"Which of the following is the correct symbolization of this argument?\n\n“Completing the LABS is a sufficient condition for passing the CLASS. Student completed the LABS. Therefore, student passed the CLASS.”\n(L = complete labs, C = pass class)",
+  c:["L --> C, L ⊦ C","C --> L, L ⊦ C","L <-> C, C ⊦ L","~(L v C), L ⊦ C"],a:0,
+  e:"'Labs sufficient for class' means L --> C. Premise 2 is L. Conclusion is C. (Valid Modus Ponens)."},
+ {p:"Which of the following is the correct symbolization of this argument?\n\n“Not both PROFESSOR and STUDENT can win the prize. PROFESSOR won the prize. Therefore, STUDENT did not win the prize.”\n(P = professor wins, S = student wins)",
+  c:["~(P & S), P ⊦ ~S","~P & ~S, P ⊦ ~S","~(P v S), P ⊦ ~S","(P & ~S), P ⊦ ~S"],a:0,
+  e:"'Not both P and S' gives ~(P & S). Premise 2 is P. Conclusion is ~S."}]},
+
+/* ==================== WEEK 5 ==================== */
+{t:"Week 5: Truth Tables for Compound Formulas", q:[
+ /* SECTION 1: HOW MANY ROWS FOR SUCH AND SUCH FORMULA? */
+ {p:"How many rows are in the truth table for the formula: p & ~q?",
+  txt:1,a:["4","4 rows","four","four rows"],e:"The formula contains 2 unique sentence letters (p, q). Number of rows = 2^2 = 4."},
+ {p:"How many rows are in the truth table for the formula: ~(p v q) --> (r <-> s)?",
+  txt:1,a:["16","16 rows","sixteen","sixteen rows"],e:"The formula contains 4 unique sentence letters (p, q, r, s). Number of rows = 2^4 = 16."},
+ {p:"How many rows are in the truth table for the formula: (p & ~(q v r))?",
+  txt:1,a:["8","8 rows","eight","eight rows"],e:"The formula contains 3 unique sentence letters (p, q, r). Number of rows = 2^3 = 8."},
+ {p:"How many rows are in the truth table for the formula: ((~q & (p v r)) <-> p) --> r?",
+  txt:1,a:["8","8 rows","eight","eight rows"],e:"The formula contains 3 unique sentence letters (p, q, r). Number of rows = 2^3 = 8."},
+ {p:"How many rows are in the truth table for the formula: ~(p & (q v (r <-> p)))?",
+  txt:1,a:["8","8 rows","eight","eight rows"],e:"The formula contains 3 unique sentence letters (p, q, r). Number of rows = 2^3 = 8."},
+ {p:"How many rows are in the truth table for the formula: (~(p --> q) <-> (r v ~s))?",
+  txt:1,a:["16","16 rows","sixteen","sixteen rows"],e:"The formula contains 4 unique sentence letters (p, q, r, s). Number of rows = 2^4 = 16."},
+ {p:"How many rows are in the truth table for the formula: ~(p & ~q) --> (~r <-> s)?",
+  txt:1,a:["16","16 rows","sixteen","sixteen rows"],e:"The formula contains 4 unique sentence letters (p, q, r, s). Number of rows = 2^4 = 16."},
+ {p:"How many rows are in the truth table for the formula: (p --> q) v (q --> p)?",
+  txt:1,a:["4","4 rows","four","four rows"],e:"The formula contains 2 unique sentence letters (p, q). Number of rows = 2^2 = 4."},
+
+ /* SECTION 2: MULTIPLE CHOICE (TRUE OR FALSE) TRUTH-VALUE EVALUATIONS */
+ {p:"If p: T, q: F, what is the T-value of ~(p v ~q) <-> (q & p)?",
+  c:["True","False"],a:0,
+  e:"q is F, so ~q is T. p v ~q = T v T = T, so ~(p v ~q) is F. q & p = F & T = F. The biconditional F <-> F evaluates to True."},
+ {p:"If p: F, q: T, r: T, s: F, what is the T-value of (~(p v q) --> (r <-> s))?",
+  c:["True","False"],a:0,
+  e:"p v q = F v T = T; ~(p v q) = F. r <-> s = T <-> F = F. The conditional F --> F evaluates to True."},
+ {p:"If p: T, q: F, r: T, what is the T-value of (p & ~(q v r))?",
+  c:["True","False"],a:1,
+  e:"q v r = F v T = T; ~(q v r) = F. T & F evaluates to False."},
+ {p:"If p: F, q: T, r: F, s: T, what is the T-value of (~(p --> q) <-> (r v ~s))?",
+  c:["True","False"],a:0,
+  e:"p --> q = F --> T = T; ~(p --> q) = F. ~s = F; r v ~s = F v F = F. The biconditional F <-> F evaluates to True."},
+ {p:"If p: T, q: T, r: F, s: F, what is the T-value of ~(p & ~q) --> (~r <-> s)?",
+  c:["True","False"],a:1,
+  e:"~q = F, so p & ~q = F, making ~(p & ~q) = T. ~r = T, so ~r <-> s = T <-> F = F. The conditional T --> F evaluates to False."},
+ {p:"If p: T, q: T, r: T, what is the T-value of ((~q & (p v r)) <-> p) --> r?",
+  c:["True","False"],a:0,
+  e:"~q = F, so ~q & (p v r) = F. F <-> T = F. F --> T evaluates to True."},
+ {p:"If p: T, q: F, r: F, what is the T-value of ((~q & (p v r)) <-> p) --> r?",
+  c:["True","False"],a:1,
+  e:"~q = T, p v r = T, so ~q & (p v r) = T. T <-> T = T. T --> F evaluates to False."},
+ {p:"If p: F, q: T, r: F, what is the T-value of ((~q & (p v r)) <-> p) --> r?",
+  c:["True","False"],a:1,
+  e:"~q = F, so ~q & (p v r) = F. F <-> F = T. T --> F evaluates to False."},
+ {p:"If p: T, q: F, r: F, what is the T-value of ~(p & (q v (r <-> p)))?",
+  c:["True","False"],a:0,
+  e:"r <-> p = F <-> T = F. q v F = F v F = F. p & F = F. ~(F) evaluates to True."},
+ {p:"If p: T, q: T, r: F, what is the T-value of ~(p & (q v (r <-> p)))?",
+  c:["True","False"],a:1,
+  e:"r <-> p = F <-> T = F. q v F = T v F = T. p & T = T. ~(T) evaluates to False."},
+
+ /* SECTION 3: ADDITIONAL QUESTIONS FROM WEEK 5 STUDY GUIDE */
+ {p:"If p --> q is False and q v r is False, what are the truth values of p, q, and r?",
+  c:["p = T, q = F, r = F","p = F, q = F, r = F","p = T, q = T, r = F","p = F, q = T, r = T"],a:0,
+  e:"A conditional p --> q is False only when p = T and q = F. A disjunction q v r is False only when both disjuncts are False, confirming q = F and r = F."},
+ {p:"Under which specific truth value assignment is the conditional statement (p --> q) False?",
+  c:["p = T, q = F","p = F, q = T","p = T, q = T","p = F, q = F"],a:0,
+  e:"By definition, a conditional (p --> q) is False if and only if the antecedent p is True and the consequent q is False."},
+ {p:"In evaluating a compound truth table, which operator column is filled last?",
+  c:["The major (main) operator","The innermost negation","The left-most conjunction","The atomic letters"],a:0,
+  e:"The truth value of a compound formula is determined step-by-step from subformulas outward, finishing with the major operator."},
+ {p:"What is the final truth value column (from row TT to FF) for the formula: p & ~q?",
+  c:["F, T, F, F","T, F, F, F","F, F, F, T","T, T, F, F"],a:0,
+  e:"Row TT: T & F = F. Row TF: T & T = T. Row FT: F & F = F. Row FF: F & T = F."},
+ {p:"What is the final truth value column (from row TT to FF) for the formula: (p --> q) v (q --> p)?",
+  c:["T, T, T, T","T, F, T, T","F, F, F, F","T, T, F, F"],a:0,
+  e:"Row TT: T v T = T. Row TF: F v T = T. Row FT: T v F = T. Row FF: T v T = T."},
+ {p:"What is the final truth value column (from row TT to FF) for the formula: ~(p v q) <-> (~p & ~q)?",
+  c:["T, T, T, T","F, F, F, F","T, F, F, T","F, T, T, F"],a:0,
+  e:"~(p v q) has the same truth value in every row as (~p & ~q), so their biconditional evaluates to True on every row."},
+ {p:"What is the final truth value column (from row TT to FF) for the formula: (p & q) --> (p v ~q)?",
+  c:["T, T, T, T","T, F, T, T","F, T, F, T","T, T, F, F"],a:0,
+  e:"Row TT: T --> T = T. Row TF: F --> T = T. Row FT: F --> F = T. Row FF: F --> T = T."},
+ {p:"What is the final truth value column (from row TT to FF) for the formula: (p <-> q) & (p & ~q)?",
+  c:["F, F, F, F","T, F, F, F","F, T, F, F","T, T, T, T"],a:0,
+  e:"p <-> q requires matching truth values, whereas p & ~q requires p = T and q = F. Since these conditions cannot overlap, the conjunction is False on every row."},
+ {p:"If p is True, what is the truth value of ~(p --> ~p)?",
+  c:["True","False"],a:0,
+  e:"If p = T, ~p = F. p --> ~p = T --> F = F. The outer negation ~(F) evaluates to True."},
+ {p:"If p is False, what is the truth value of ~(p --> ~p)?",
+  c:["False","True"],a:0,
+  e:"If p = F, ~p = T. p --> ~p = F --> T = T. The outer negation ~(T) evaluates to False."},
+ {p:"Given p = T and q = F, what is the truth value of the conjunction p & q?",
+  c:["False","True"],a:0,
+  e:"A conjunction is True if and only if both conjuncts are True. Since q is False, p & q is False."},
+ {p:"Given p = F and q = F, what is the truth value of the disjunction p v q?",
+  c:["False","True"],a:0,
+  e:"An inclusive disjunction is False if and only if both disjuncts are False."},
+ {p:"Given p = F and q = F, what is the truth value of the conditional p --> q?",
+  c:["True","False"],a:0,
+  e:"A conditional statement with a False antecedent is always vacuously True."},
+ {p:"Given p = F and q = T, what is the truth value of the biconditional p <-> q?",
+  c:["False","True"],a:0,
+  e:"A biconditional is True if and only if both components share the same truth value. Since p and q differ, it is False."},
+ {p:"What is the truth value of ~p when p is False?",
+  c:["True","False"],a:0,
+  e:"Negation reverses the truth value of a statement."},
+ {p:"How many distinct classes of instances (i.e. rows) exist for a statement form with 1 distinct variable?",
+  txt:1,a:["2","2 rows","two","two rows"],e:"Number of rows = 2^1 = 2."},
+ {p:"How many distinct classes of instances (i.e. rows) exist for a statement form with with 5 distinct variables?",
+  txt:1,a:["32","32 rows","thirty-two","thirty-two rows"],e:"Number of rows = 2^5 = 32."},
+ {p:"If a biconditional p <-> q is True, what can be inferred about the truth values of p and q?",
+  c:["p and q have the same truth value","p and q are both True","p and q are both False","p and q have opposite truth values"],a:0,
+  e:"A biconditional evaluates to True if and only if both component formulas share the exact same truth value (both True or both False)."},
+ {p:"In a standard truth table with 3 sentence letters (p, q, r), how many rows have p = True?",
+  txt:1,a:["4","4 rows","four","four rows"],e:"In an 8-row table, half of the rows (4 rows) assign True to the first sentence letter p."},
+ {p:"If p is True and q is False, what is the truth value of p <-> q?",
+  c:["False","True"],a:0,
+  e:"Since p and q have opposing truth values, the biconditional p <-> q is False."}
+]},
+
+/* ==================== WEEK 6 ==================== */
+{t:"Week 6: Testing Validity & Classifying Statement Forms (Tautology / Contradiction / Contingency)", q:[
+ /* BASIC CONCEPTS */
+ {p:"A form true on every row of its truth table is a:",c:["Tautology","Contradiction","Contingency","Counterexample"],a:0,e:"Always true = tautology."},
+ {p:"A form false on every row of its truth table is a:",c:["Tautology","Contradiction","Contingency","Theorem"],a:1,e:"Always false = contradiction."},
+ {p:"An argument is invalid exactly when there is a row where:",c:["All premises are false","All premises are true and the conclusion is false","The conclusion is true","Every formula is false"],a:1,e:"That row is the counterexample row."},
+
+ /* TRUTH TABLE PRACTICE QUESTIONS */
+ {p:"Do a truth table on your own, then answer the following question:\n\nWhat can we say about ~(P --> P)?",c:["Tautology","Contradiction","Contingency"],a:1,e:"P --> P is true on every row, so its negation ~(P --> P) is false on every row (a contradiction)."},
+ {p:"Do a truth table on your own, then answer the following question:\n\nWhat can we say about (P v Q) --> P?",c:["Tautology","Contradiction","Contingency"],a:2,e:"It is true on rows where P is true, but false when P=F and Q=T. Therefore, it is contingent."},
+ {p:"Do a truth table on your own, then answer the following question:\n\nWhat can we say about (P & Q) & ~(P v R)?",c:["Tautology","Contradiction","Contingency"],a:1,e:"(P & Q) requires P=T, while ~(P v R) requires P=F. Since both cannot hold together, it is false on all rows (a contradiction)."},
+ {p:"Do a truth table on your own, then answer the following question:\n\nIs the argument P --> Q, ~(P & Q) ⊦ ~P & ~Q valid?",c:["Valid","Invalid"],a:1,e:"Invalid — on the row where P = F and Q = T, both premises are true but the conclusion ~P & ~Q is false."},
+ {p:"Do a truth table on your own, then answer the following question:\n\nIs the argument P v Q, ~P, ~Q ⊦ ~R valid?",c:["Valid","Invalid"],a:0,e:"Valid — the premises P v Q, ~P, and ~Q are inconsistent (they cannot all be true together on any row), so there is no row with all true premises and a false conclusion."},
+
+ /* SIX FACTS TO REMEMBER QUESTIONS */
+ {p:"If an argument with premises p, q and conclusion r is VALID (p, q ⊦ r), what can be said about the formula: ((p & q) --> r)?",
+  c:["Tautology","Contradiction","Contingency","Invalid"],a:0,
+  e:"Fact 1: An argument is valid iff its corresponding conditional (p & q) --> r is a TAUTOLOGY (there is no row where premises are true and conclusion false)."},
+
+ {p:"If an argument with premises p, q and conclusion r is INVALID (p, q ⊦ r), what can be said about the following: ((p & q) --> r)?",
+  c:["It must be a tautology","It is either a contingency or a contradiction","It is always a contradiction","It cannot be evaluated"],a:1,
+  e:"Fact 2: If an argument is invalid, its corresponding conditional fails to be a tautology; thus it is either a contingency or a contradiction."},
+
+ {p:"Suppose premise p in the argument 'p, q ⊦ r' is a CONTRADICTION. Is the argument valid?",
+  c:["Valid","Invalid"],a:0,
+  e:"Fact 3: If a premise is a contradiction, the premises can never be jointly true on any row. Thus, no counterexample row exists, making the argument VALID."},
+
+ {p:"Suppose the conclusion r in the argument 'p, q ⊦ r' is a TAUTOLOGY. Is the argument valid?",
+  c:["Valid","Invalid"],a:0,
+  e:"Fact 4: If the conclusion is a tautology, it is true on every row. Thus, it is impossible for all premises to be true while the conclusion is false, making the argument VALID."},
+
+ {p:"If an argument with premises p, q and conclusion r is VALID (p, q ⊦ r), what can we say about (p & q) & ~r?",
+  c:["Contradiction","Tautology","Contingency","Valid"],a:0,
+  e:"Fact 5: For a valid argument, it is impossible for all premises to be true while the conclusion is false (~r). Hence, (p & q) & ~r is false on every row (a CONTRADICTION)."},
+
+ {p:"If an argument with premises p, q and conclusion r is INVALID (p, q ⊦ r), what can be said about the formula (p & q) & ~r?",
+  c:["It must be a contradiction","It is either a contingency or a tautology","It is always a tautology","It is a valid argument"],a:1,
+  e:"Fact 6: An invalid argument has at least one row where all premises are true and the conclusion is false (~r is true). Therefore, (p & q) & ~r is true on at least one row, making it either a CONTINGENCY or a TAUTOLOGY."}]},
+
+/* ==================== INTERACTIVE TRUTH TABLE TRAINER ==================== */
+{t:"Interactive Truth Table Trainer", applet:true},
+
+/* ==================== WEEK 7 ==================== */
+{t:"Week 7: Method of Proofs & 8 Basic Inference Rules", q:[
+ /* BASIC INFERENCE RULES */
+ {p:"From P --> Q and P, infer Q. This rule is:",c:["MT","-->E","HS","DS"],a:1,e:"Conditional elimination, -->E."},
+ {p:"From P & Q, infer P. This rule is:",c:["&E","&I","vI","vE"],a:0,e:"Conjunction elimination, &E."},
+ {p:"From P and Q, infer P & Q. This rule is:",c:["&E","&I","-->I","<->I"],a:1,e:"Conjunction introduction, &I."},
+ {p:"From P, infer P v Q. This rule is:",c:["&E","&I","vI","-->E"],a:2,e:"Disjunction introduction, vI."},
+ {p:"From P v Q, P --> R and Q --> R, infer R. This rule is:",c:["vE","vI","DS","HS"],a:0,e:"Disjunction elimination, vE."},
+ {p:"From P <-> Q, infer P --> Q. This rule is:",c:["<->I","<->E","-->I","MI"],a:1,e:"Biconditional elimination, <->E."},
+
+ /* MULTIPLE CHOICE SUBSTITUTION INSTANCE QUESTIONS */
+ {p:"Is ~(E v ~C) --> (~D & ~B) a substitution instance of ~(q v p) --> (~r & s)?",c:["Yes, with q = E, p = ~C, r = D, s = ~B","No, because ~C is not a sentence letter","No, because the main operators differ","Only if s = B"],a:0,e:"Yes. Substitution instances may replace sentence letters with any well-formed formula."},
+ {p:"Is (P & Q) --> (R v S) a substitution instance of p --> q?",c:["Yes, with p = (P & Q) and q = (R v S)","No, because p and q must be single sentence letters","No, because the major operator is not a conditional","Only if P and Q are both true"],a:0,e:"Yes, replacing p with (P & Q) and q with (R v S) yields (P & Q) --> (R v S)."},
+ {p:"Is ~(P --> Q) v ~(P --> Q) a substitution instance of p v p?",c:["Yes, with p = ~(P --> Q)","No, because p cannot contain conditionals","No, because disjunction requires distinct sentence letters","Only if P = Q"],a:0,e:"Yes, both occurrences of p are uniformly replaced by the formula ~(P --> Q)."},
+ {p:"Is (A & B) v (C & D) a substitution instance of p v q?",c:["Yes, with p = (A & B) and q = (C & D)","No, because p and q must be atomic sentence letters","No, because & takes precedence over v","Only if A and C are identical"],a:0,e:"Yes, p is replaced by (A & B) and q is replaced by (C & D)."},
+ {p:"Is (P --> Q) & (P --> R) a substitution instance of p & p?",c:["No, because p is replaced by (P --> Q) in the first conjunct and by (P --> R) in the second","Yes, with p = (P --> Q)","Yes, with p = P","No, because & cannot join conditionals"],a:0,e:"No. A substitution instance requires UNIFORM substitution: every occurrence of p must be replaced by the exact same formula."},
+
+ /* SHORT ANSWER SUBSTITUTION INSTANCE QUESTIONS */
+ {p:"If you substitute p = (A & B) and q = ~C into the schema 'p --> q', what formula do you get?",txt:1,a:["(A&B)-->~C","(A & B) --> ~C","(A&B)->~C"],e:"Replacing p with (A & B) and q with ~C yields (A & B) --> ~C."},
+ {p:"If you substitute p = ~P and q = (Q v R) into the schema 'p & q', what formula do you get?",txt:1,a:["~P&(QvR)","~P & (Q v R)","~P&(Q v R)"],e:"Replacing p with ~P and q with (Q v R) yields ~P & (Q v R)."},
+ {p:"If you substitute p = (M <-> N) into the schema 'p v ~p', what formula do you get?",txt:1,a:["(M<->N)v~(M<->N)","(M <-> N) v ~(M <-> N)"],e:"Uniformly replacing p with (M <-> N) gives (M <-> N) v ~(M <-> N)."},
+ {p:"If you substitute p = (A --> B) and q = (B --> C) into the schema 'p <-> q', what formula do you get?",txt:1,a:["(A-->B)<->(B-->C)","(A --> B) <-> (B --> C)"],e:"Replacing p with (A --> B) and q with (B --> C) gives (A --> B) <-> (B --> C)."},
+ {p:"If you substitute p = ~(X & Y) into the schema '~~p', what formula do you get?",txt:1,a:["~~~(X&Y)","~~~(X & Y)"],e:"Prefixing '~~' to the formula ~(X & Y) yields ~~~(X & Y)."},
+
+ /* CORRECT APPLICATION OF THE RULE QUESTIONS */
+ {p:"Given Line 1: (P & Q) --> R, and Line 2: P & Q.\n\nIs deriving 'R' on Line 3 by '1, 2 -->E' a correct application of the rule?",c:["Correct application","Incorrect application"],a:0,e:"Correct. Line 1 is a conditional (A --> B) and Line 2 is its antecedent A, so -->E correctly yields B (R)."},
+ {p:"Given Line 1: P --> (Q & R), and Line 2: P.\n\nIs deriving 'Q' on Line 3 by '1, 2 -->E' a correct application of the rule?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. Applying -->E to P --> (Q & R) and P yields (Q & R), not Q directly. You must first derive (Q & R) and then use &E."},
+ {p:"Given Line 1: (A v B) & (C v D).\n\nIs deriving 'A v B' on Line 2 by '1 &E' a correct application of the rule?",c:["Correct application","Incorrect application"],a:0,e:"Correct. Line 1 is a conjunction whose left conjunct is (A v B), so &E correctly yields (A v B)."},
+ {p:"Given Line 1: P v Q, Line 2: P --> R, and Line 3: Q --> R.\n\nIs deriving 'R' on Line 4 by '1, 2, 3 vE' a correct application of the rule?",c:["Correct application","Incorrect application"],a:0,e:"Correct. This strictly matches the rule form for Disjunction Elimination (vE)."},
+ {p:"Given Line 1: (P & Q) --> R, and Line 2: R.\n\nIs deriving 'P & Q' on Line 3 by '1, 2 -->E' a correct application of the rule?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. That is the fallacy of Affirming the Consequent. -->E requires the antecedent (P & Q), not the consequent (R)."}
+]},
+
+/* ==================== WEEK 8 ==================== */
+{t:"Week 8: Conditional Proof (-->I), Negation Introduction (~I) & Derived Rules", q:[
+ /* DERIVED RULES (QUESTIONS 1-3) */
+ {p:"From P --> Q and ~Q, infer ~P. This derived rule is:",c:["-->E","MT","vI","&E"],a:1,e:"Modus tollens, MT."},
+ {p:"From P v Q and ~P, infer Q. This derived rule is:",c:["DS","vE","&I","HS"],a:0,e:"Disjunctive syllogism, DS."},
+ {p:"From P --> Q and Q --> R, infer P --> R. This derived rule is:",c:["MT","HS","DS","EXP"],a:1,e:"Hypothetical syllogism, HS."},
+
+ /* SUBPROOF RULES CONCEPTUAL QUESTIONS */
+ {p:"To prove P --> Q by conditional proof (-->I), you assume:",c:["Q","~P","P","~Q"],a:2,e:"Assume the antecedent P in a subproof, derive Q, then discharge P to conclude P --> Q."},
+ {p:"Negation introduction (~I) works by assuming P in a subproof and deriving:",c:["Q","A contradiction (q & ~q)","A tautology","~Q"],a:1,e:"Reach a contradiction (q & ~q) inside the subproof, then conclude ~P."},
+ {p:"When a hypothesis is discharged, lines inside that subproof are:",c:["Still available for later citation","Closed — its lines may not be cited outside that subproof","Deleted from the proof","Renumbered"],a:1,e:"Closed — lines within a discharged subproof cannot be cited later in the proof."},
+ {p:"A completed valid proof must contain:",c:["An undischarged hypothesis","No undischarged hypotheses","At least one premise","A truth table"],a:1,e:"No undischarged hypotheses may remain when the main proof is completed."},
+ {p:"When proving ~(D --> ~F) using ~I, what is the hypothesis?",c:["D & F","D --> ~F","~F","F & ~F"],a:1,e:"To prove a negation ~P by ~I, you assume P as your hypothesis. Here, P is D --> ~F."},
+ {p:"Which rule takes you from (~B --> C) v F and ~F to ~B --> C?",c:["MT","DS","HS","vI"],a:1,e:"Disjunctive syllogism (DS): given A v B and ~B, you infer A."},
+ {p:"From ~B --> C and ~C you infer ~~B by:",c:["MT","DN","DS","-->E"],a:0,e:"Modus tollens (MT): given P --> Q and ~Q, you infer ~P. Here, P is ~B, so ~P is ~~B."},
+ {p:"Which of these is NOT among the course's three derived rules?",c:["Modus Tollens (MT)","Hypothetical Syllogism (HS)","Disjunctive Syllogism (DS)","Constructive Dilemma (CD)"],a:3,e:"Constructive Dilemma is not among the course's three derived rules."},
+
+ /* WHAT RULE HAS BEEN APPLIED QUESTIONS */
+ {p:"Line 1: A --> B\nLine 2: B --> C\nLine 3: A --> C (1, 2 ?)\n\nWhich rule was applied to derive Line 3?",c:["Modus Tollens (MT)","Hypothetical Syllogism (HS)","Disjunctive Syllogism (DS)","Conditional Elimination (-->E)"],a:1,e:"Hypothetical Syllogism (HS) derives P --> R from P --> Q and Q --> R."},
+ {p:"Line 1: ~M v N\nLine 2: ~~M\nLine 3: N (1, 2 ?)\n\nWhich rule was applied to derive Line 3?",c:["Disjunctive Syllogism (DS)","Modus Tollens (MT)","Disjunction Elimination (vE)","Conjunction Elimination (&E)"],a:0,e:"Disjunctive Syllogism (DS): given ~M v N and the negation of the first disjunct (~~M), you infer N."},
+ {p:"Line 1: (P & Q) --> ~R\nLine 2: ~~R\nLine 3: ~(P & Q) (1, 2 ?)\n\nWhich rule was applied to derive Line 3?",c:["Modus Tollens (MT)","Disjunctive Syllogism (DS)","Conditional Elimination (-->E)","Negation Introduction (~I)"],a:0,e:"Modus Tollens (MT): given A --> B and ~B (where B = ~R and ~B = ~~R), you infer ~A, which is ~(P & Q)."},
+ {p:"Line 1: | P (Hypothesis)\nLine 2: | Q & ~Q\nLine 3: ~P (1-2 ?)\n\nWhich rule was applied to derive Line 3?",c:["Negation Introduction (~I)","Conditional Introduction (-->I)","Modus Tollens (MT)","Disjunctive Syllogism (DS)"],a:0,e:"Negation Introduction (~I) assumes P, derives a contradiction (Q & ~Q), and concludes ~P."},
+ {p:"Line 1: | A & B (Hypothesis)\nLine 2: | A\nLine 3: (A & B) --> A (1-2 ?)\n\nWhich rule was applied to derive Line 3?",c:["Conditional Introduction (-->I)","Conjunction Elimination (&E)","Biconditional Introduction (<->I)","Conditional Elimination (-->E)"],a:0,e:"Conditional Introduction (-->I) assumes the antecedent (A & B), derives the consequent (A), and concludes (A & B) --> A."},
+
+ /* IS THIS A CORRECT APPLICATION OF THE RULE QUESTIONS */
+ {p:"Line 1: P --> Q\nLine 2: ~P\nLine 3: ~Q (1, 2 MT)\n\nIs this a correct application of Modus Tollens (MT)?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. MT requires the negation of the consequent (~Q) to infer the negation of the antecedent (~P). This is the fallacy of Denying the Antecedent."},
+ {p:"Line 1: (A & B) v C\nLine 2: ~C\nLine 3: A & B (1, 2 DS)\n\nIs this a correct application of Disjunctive Syllogism (DS)?",c:["Correct application","Incorrect application"],a:0,e:"Correct. DS applies to a disjunction and the negation of one disjunct to yield the other disjunct."},
+ {p:"Line 1: P --> Q\nLine 2: Q --> R\nLine 3: P --> R (1, 2 HS)\n\nIs this a correct application of Hypothetical Syllogism (HS)?",c:["Correct application","Incorrect application"],a:0,e:"Correct. This strictly fits the HS schema: P --> Q, Q --> R ⊦ P --> R."},
+ {p:"Line 1: P v Q\nLine 2: P\nLine 3: ~Q (1, 2 DS)\n\nIs this a correct application of Disjunctive Syllogism (DS)?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. DS requires the negation of a disjunct (e.g., ~P) to infer the other disjunct (Q)."},
+ {p:"Line 1: | ~P (Hypothesis)\nLine 2: | Q & ~Q\nLine 3: P (1-2 ~I)\n\nIs deriving P on Line 3 directly by ~I a correct application of the rule?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. ~I on hypothesis ~P yields ~~P, not P directly. You must derive ~~P by ~I and then apply Double Negation Elimination if allowed."},
+ {p:"Line 1: | P (Hypothesis)\nLine 2: | Q\nLine 3: P --> Q (1-2 -->I)\n\nIs deriving P --> Q on Line 3 a correct application of Conditional Introduction (-->I)?",c:["Correct application","Incorrect application"],a:0,e:"Correct. Assuming P and deriving Q allows discharging P to conclude P --> Q by -->I."},
+
+ /* ADDITIONAL SCOPE LINES & SUBPROOF RULE PRACTICE */
+ {p:"In a formal subproof, the vertical scope line (|) visually indicates:",c:["The main argument's conclusion","The boundary and duration of an active subproof/hypothesis","An equivalence transformation","An invalid step"],a:1,e:"Scope lines mark the exact boundaries of active subproofs under a specific hypothesis."},
+ {p:"If Line 4 is inside a subproof under Hypothesis Line 3, can Line 4 be cited on Line 8 after Hypothesis Line 3 has been discharged?",c:["Yes","No"],a:1,e:"No. Once a hypothesis is discharged, all lines inside its subproof are closed and cannot be cited again."},
+ {p:"To prove A --> (B --> C) using conditional proof, how many subproofs/hypotheses must be nested?",c:["One subproof","Two nested subproofs","Three subproofs","No subproofs"],a:1,e:"You first assume A, then inside that subproof assume B, derive C, and discharge step-by-step."},
+ {p:"What is the main conclusion derived when you assume P, derive Q & ~Q, and discharge P?",c:["P","~P","Q","P --> Q"],a:1,e:"Negation Introduction (~I) yields ~P when hypothesis P leads to a contradiction."},
+ {p:"Line 1: ~A --> (B & ~B)\nLine 2: ~A\nLine 3: B & ~B (1, 2 -->E)\n\nCan you conclude A on Line 4 using ~I from lines 2-3?",c:["Yes, if lines 2-3 form a valid subproof starting with hypothesis ~A","No, because ~I cannot be used with conditionals","Yes, always without scope lines","No, because B & ~B is not a contradiction"],a:0,e:"Yes. If ~A is an assumed hypothesis in a subproof leading to B & ~B, discharging ~A by ~I gives ~~A (and thus A)."},
+ {p:"In a subproof for -->I, if you assume P and immediately derive P on the next line (by reiteration/identity), what conditional can you conclude upon discharge?",c:["P --> P","P --> ~P","~P --> P","P & P"],a:0,e:"Assuming P and deriving P allows you to discharge P and infer P --> P by -->I."},
+ {p:"Line 1: A --> B\nLine 2: ~B --> C\nLine 3: ~C\nLine 4: ~~B (2, 3 MT)\nLine 5: B (4 DN)\nLine 6: ?\n\nWhat can be inferred on Line 6 using Line 1 and Line 5?",c:["~A by MT","A by -->E","B --> A by HS","~B by DS"],a:0,e:"From A --> B (1) and ~B (or via MT reasoning if set up), but here from A --> B and ~~B (or B), wait: A --> B and ~B gives ~A by MT."},
+ {p:"Which derived rule allows you to go directly from P --> ~Q and Q to ~P?",c:["Disjunctive Syllogism (DS)","Modus Tollens (MT)","Hypothetical Syllogism (HS)","Conditional Elimination (-->E)"],a:1,e:"Modus Tollens (MT) applies to P --> ~Q and ~~~~~~~~~Q (i.e. Q acting as ~~Q) to derive ~P."},
+ {p:"Suppose Line 2 is hypothesis X, Line 5 is Y, and Line 6 is X --> Y (2-5 -->I). Is Line 2 still active on Line 7?",c:["Yes, hypotheses remain active forever","No, hypothesis X was discharged at Line 6","Only if Y is a sentence letter","Only if cited by MT"],a:1,e:"No. Applying -->I discharges hypothesis X, closing lines 2-5."},
+ {p:"Which rule allows you to infer ~A from A --> B and A --> ~B (via subproof or derived steps)?",c:["Negation Introduction (~I)","Disjunctive Syllogism (DS)","Disjunction Elimination (vE)","Biconditional Elimination (<->E)"],a:0,e:"Assuming A yields B and ~B (hence B & ~B), allowing you to conclude ~A by ~I."},
+ {p:"Line 1: (P v Q) --> R\nLine 2: ~R\nLine 3: ~(P v Q) (1, 2 MT)\nLine 4: ?\n\nIf DS is applied to line 3, is that valid?",c:["Yes","No, because line 3 is a negated disjunction, not a disjunction"],a:1,e:"No. DS requires a disjunction (A v B), not a negated disjunction ~(A v B)."},
+ {p:"Can a line outside a subproof cite a line inside an open (currently active) subproof?",c:["Yes, if the subproof has not been discharged yet","No, lines inside a subproof can only be cited within that subproof or at the point of discharging","Always","Never"],a:0,e:"While a subproof is active, lines inside it can be cited by deeper nested steps or to close that subproof."}
+]},
+
+/* ==================== WEEK 9 ==================== */
+{t:"Week 9: Proofs of Theorems & 5 Equivalence Rules (DM, DN, TRANS, MI, EXP)", q:[
+ /* CONCEPTUAL QUESTIONS */
+ {p:"What is a SUBFORMULA of a well-formed formula (WFF)?",c:["Any contiguous syntactical component of a WFF that is itself a well-formed formula","Only atomic sentence letters inside a formula","The major operator of the formula","Any string of symbols contained in the formula"],a:0,e:"A subformula is any contiguous part of a WFF that is itself a valid WFF under the rules of formation."},
+ {p:"Two formulas P and Q are LOGICALLY EQUIVALENT if and only if:",c:["They have identical truth values on every row of a truth table","They both contain the same sentence letters","They are both atomic formulas","One is the negation of the other"],a:0,e:"Logical equivalence means two formulas share the exact same truth value under every possible truth assignment."},
+ {p:"What is the relationship between THEOREMS in propositional logic and TAUTOLOGIES?",c:["All theorems are tautologies","Only some theorems are tautologies","Theorems are contradictions, whereas tautologies are contingent","No theorem can be a tautology"],a:0,e:"Every theorem proved from zero premises in propositional calculus is a tautology (and vice versa by completeness)."},
+ {p:"The formula p <-> q is a TAUTOLOGY if and only if:",c:["p and q are logically equivalent","p and q are both atomic","p is true and q is false","p --> q is a contradiction"],a:0,e:"A biconditional p <-> q is true on every row (a tautology) exactly when p and q have matching truth values on all rows (meaning p and q are logically equivalent)."},
+ {p:"A THEOREM in formal proof systems is defined as a formula that:",c:["Can be proved from no premises at all (zero premises)","Requires at least two premises to derive","Is proved using only truth tables","Contains no conditionals"],a:0,e:"A theorem is a formula derived from an empty set of premises (⊦ T)."},
+ {p:"How do EQUIVALENCE RULES differ from BASIC INFERENCE RULES in formal proofs?",c:["Equivalence rules are bidirectional and can be applied to SUBFORMULAS; basic inference rules apply only to whole lines","Equivalence rules apply only to whole lines; basic inference rules apply to subformulas","Equivalence rules require subproofs; basic inference rules do not","Equivalence rules can only be used in theorem proofs"],a:0,e:"Equivalence rules express logical equivalences, so they work in both directions and can replace subformulas within larger expressions."},
+
+ /* CORE EQUIVALENCE RULES CONCEPTS */
+ {p:"~(P & Q) is logically equivalent to ~P v ~Q by which rule?",c:["DN","DM","TRANS","EXP"],a:1,e:"De Morgan's Law (DM)."},
+ {p:"~(P v Q) is logically equivalent to ~P & ~Q by which rule?",c:["DM","MI","EXP","DN"],a:0,e:"De Morgan's Law (DM)."},
+ {p:"P is logically equivalent to ~~P by which rule?",c:["DM","DN","TRANS","MI"],a:1,e:"Double Negation (DN)."},
+ {p:"P --> Q is logically equivalent to ~Q --> ~P by which rule?",c:["TRANS","MI","DM","DN"],a:0,e:"Transposition (TRANS)."},
+ {p:"P --> Q is logically equivalent to ~P v Q by which rule?",c:["EXP","MI","DN","DM"],a:1,e:"Material Implication (MI)."},
+ {p:"(P & Q) --> R is logically equivalent to P --> (Q --> R) by which rule?",c:["EXP","TRANS","DN","MI"],a:0,e:"Exportation (EXP)."},
+
+ /* "WHAT RULE HAS BEEN APPLIED?" QUESTIONS (10+ ITEM POOL) */
+ {p:"Line 1: ~(A & ~B)\nLine 2: ~A v ~~B (1 ?)\n\nWhich rule was applied to derive Line 2?",c:["De Morgan (DM)","Material Implication (MI)","Transposition (TRANS)","Exportation (EXP)"],a:0,e:"De Morgan (DM): ~(p & q) is replaced by ~p v ~q (where p = A and q = ~B)."},
+ {p:"Line 1: (A v B) --> C\nLine 2: ~C --> ~(A v B) (1 ?)\n\nWhich rule was applied to derive Line 3?",c:["Transposition (TRANS)","Material Implication (MI)","Exportation (EXP)","De Morgan (DM)"],a:0,e:"Transposition (TRANS): p --> q is replaced by ~q --> ~p."},
+ {p:"Line 1: (P & Q) --> (R v S)\nLine 2: ~(P & Q) v (R v S) (1 ?)\n\nWhich rule was applied to derive Line 2?",c:["Material Implication (MI)","De Morgan (DM)","Exportation (EXP)","Double Negation (DN)"],a:0,e:"Material Implication (MI): p --> q is replaced by ~p v q."},
+ {p:"Line 1: X --> (Y --> Z)\nLine 2: (X & Y) --> Z (1 ?)\n\nWhich rule was applied to derive Line 2?",c:["Exportation (EXP)","Transposition (TRANS)","Material Implication (MI)","De Morgan (DM)"],a:0,e:"Exportation (EXP): p --> (q --> r) is replaced by (p & q) --> r."},
+ {p:"Line 1: ~(P v ~Q) & R\nLine 2: (~P & ~~Q) & R (1 ?)\n\nWhich rule was applied to the subformula on Line 1 to derive Line 2?",c:["De Morgan (DM)","Material Implication (MI)","Double Negation (DN)","Transposition (TRANS)"],a:0,e:"De Morgan (DM) was applied to the subformula ~(P v ~Q) to yield (~P & ~~Q)."},
+ {p:"Line 1: A --> ~~B\nLine 2: A --> B (1 ?)\n\nWhich rule was applied to the subformula on Line 1 to derive Line 2?",c:["Double Negation (DN)","Material Implication (MI)","Transposition (TRANS)","De Morgan (DM)"],a:0,e:"Double Negation (DN) was applied to the subformula ~~B to replace it with B."},
+
+ /* "IS THIS A CORRECT APPLICATION OF THE RULE?" QUESTIONS */
+ {p:"Line 1: ~(P & Q) --> R\nLine 2: (~P & ~Q) --> R (1 DM)\n\nIs this a correct application of De Morgan (DM)?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. De Morgan transforms ~(P & Q) into ~P v ~Q, not ~P & ~Q."},
+ {p:"Line 1: (A & B) --> C\nLine 2: A --> (B --> C) (1 EXP)\n\nIs this a correct application of Exportation (EXP)?",c:["Correct application","Incorrect application"],a:0,e:"Correct. Exportation allows moving between (p & q) --> r and p --> (q --> r)."},
+ {p:"Line 1: ~P --> Q\nLine 2: ~Q --> P (1 TRANS)\n\nIs this a correct application of Transposition (TRANS)?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. Transposition of ~P --> Q yields ~Q --> ~~P (or ~Q --> P only if combined with DN). Strictly, TRANS swaps and negates both sides: ~Q --> ~~P."},
+ {p:"Line 1: P --> (Q v R)\nLine 2: ~P v (Q v R) (1 MI)\n\nIs this a correct application of Material Implication (MI)?",c:["Correct application","Incorrect application"],a:0,e:"Correct. MI replaces p --> q with ~p v q."},
+ {p:"Line 1: (P --> Q) & R\nLine 2: (~P v Q) & R (1 MI)\n\nIs applying MI to the subformula (P --> Q) inside Line 1 a correct application?",c:["Correct application","Incorrect application"],a:0,e:"Correct. Equivalence rules can be validly applied to subformulas within larger compounds."},
+ {p:"Line 1: P & Q\nLine 2: Q & P (1 DM)\n\nIs citing De Morgan (DM) to derive Line 2 a correct application of the rule?",c:["Correct application","Incorrect application"],a:1,e:"Incorrect. Swapping conjuncts is Commutativity (COM), not De Morgan (DM)."},
+ {p:"Line 1: ~(A v B)\nLine 2: ~A & ~B (1 DM)\n\nIs this a correct application of De Morgan (DM)?",c:["Correct application","Incorrect application"],a:0,e:"Correct. DM replaces ~(p v q) with ~p & ~q."},
+ {p:"Line 1: P --> Q, Line 2: P.\nLine 3: ~P v Q (1 MI).\n\nIs deriving Line 3 by MI a correct application?",c:["Correct application","Incorrect application"],a:0,e:"Correct. MI transforms line 1 (P --> Q) into ~P v Q independently of line 2."},
+
+ /* THEOREM & PROOF STRATEGY PRACTICE */
+ {p:"Which rule pair turns ~(P --> Q) into P & ~Q?",c:["MI then DM (with DN)","EXP then TRANS","DS then MT","vI then vE"],a:0,e:"MI turns ~(P --> Q) into ~(~P v Q); DM then turns that into ~~P & ~Q, which simplifies via DN to P & ~Q."},
+ {p:"To prove the theorem ((P & Q) --> R) <-> (P --> (Q --> R)), the primary overall proof strategy is:",c:["Set up two conditional subproofs (left-to-right and right-to-left), then use <->I","Build a single truth table","Apply Reductio (~I)","Use Exportation directly on line 1"],a:0,e:"To prove a biconditional theorem, establish both directions via conditional proofs and join them with <->I."},
+ {p:"When proving a conditional theorem like ⊦ P --> (Q --> P) from zero premises, what is the first step?",c:["Assume P as a hypothesis in a subproof","Assume ~P by ~I","Apply De Morgan","Assume Q & ~Q"],a:0,e:"To prove a conditional theorem p --> q, assume the antecedent p as a subproof hypothesis."},
+ {p:"In a proof of a theorem ⊦ P v ~P from zero premises using ~I, what hypothesis do you assume?",c:["~(P v ~P)","P & ~P","P","~P"],a:0,e:"To prove a formula A by ~I (reductio), assume its negation ~A (here ~(P v ~P)) and derive a contradiction."},
+ {p:"If a formula P is a THEOREM, what is its truth value on row 3 of a standard truth table?",c:["True","False","Contingent","Undetermined"],a:0,e:"Theorems are tautologies, meaning they evaluate to True on every row of a truth table."},
+ {p:"Can an equivalence rule be applied to a subformula inside a subproof?",c:["Yes, equivalence rules apply to subformulas anywhere they occur","No, equivalence rules cannot be used inside subproofs","Only if the subproof is closed","Only during theorem proofs"],a:0,e:"Yes. Equivalence rules can be applied to subformulas at any line in a proof, including within active subproofs."},
+ {p:"Which of the following is a SUBFORMULA of (P & Q) --> ~R?",c:["P & Q","P --> ~R","Q --> ~R","& Q --"],a:0,e:"(P & Q) is a well-formed subformula. 'P --> ~R' is not a contiguous subformula of the main expression."},
+ {p:"What is derived when Exportation (EXP) is applied to ~(A --> (B --> C))?",c:["~((A & B) --> C)","(~A & ~B) --> ~C","(A & B) --> ~C","~(A --> B) & C"],a:0,e:"Applying EXP to the subformula A --> (B --> C) yields ~((A & B) --> C)."}
+]},
+
+/* ==================== WEEK 10 ==================== */
+{t:"Week 10: Advanced Proof Strategies & Capstone Integration", q:[
+ /* UPDATED CORE STRATEGY QUESTIONS */
+ {p:"When the target conclusion is a conditional statement (A --> B), the default proof strategy is:",c:["Conditional proof (-->I)","vI","&E","Truth table"],a:0,e:"When the goal is a conditional, assume the antecedent A in a subproof, derive the consequent B, and apply Conditional Introduction (-->I)."},
+ {p:"When the target conclusion is a negation (~A), the default proof strategy is:",c:["-->E","~I","DS","&I"],a:1,e:"When the goal is a negation, assume A in a subproof, derive a contradiction (B & ~B), and conclude ~A using ~I."},
+ {p:"When the target conclusion is a conjunction (A & B), the default proof strategy is:",c:["Prove each conjunct separately, then apply &I","vE","MT","DN"],a:0,e:"To prove a conjunction, derive each conjunct independently and then combine them with Conjunction Introduction (&I)."},
+ {p:"When the target conclusion is a biconditional (A <-> B), the default proof strategy is:",c:["Set up two conditional subproofs (A --> B and B --> A), then apply <->I","Set up a single subproof","Apply ~I","Apply De Morgan"],a:0,e:"To prove a biconditional, derive both directions via separate conditional subproofs and apply Biconditional Introduction (<->I)."},
+ {p:"When a main premise is a disjunction (A v B), a primary proof strategy is:",c:["vE (or DS if the negation of a disjunct is available)","EXP","&E","-->I"],a:0,e:"A disjunctive premise naturally suggests using Disjunction Elimination (vE) or Disjunctive Syllogism (DS) if a negated disjunct is available."},
+ {p:"Before symbolizing an argument passage for formal proof, you should first:",c:["Build the truth table","Put the argument into standard form","Guess the conclusion","Apply De Morgan's Law"],a:1,e:"Structuring an informal argument into standard form ensures all premises and the ultimate conclusion are clearly identified before symbolization."},
+
+ /* CAPSTONE WORKFLOW QUESTION (UPDATED Q7) */
+ {p:"What is the complete sequence of steps  for solving capstone problems?",
+  c:["standard form – symbolize – truth table – proof",
+     "symbolize – standard form – proof – truth table",
+     "truth table – standard form – symbolize – proof",
+     "proof – symbolize – truth table – standard form"],a:0,
+  e:"The complete capstone problem pipeline is: (1) Standard form, (2) Symbolize into propositional calculus, (3) Truth table verification, and (4) Formal proof derivation."},
+
+ /* EXPANDED ADVANCED PROOF STRATEGIES & GOAL ANALYSIS (30+ TOTAL POOL) */
+ {p:"What is GOAL ANALYSIS in formal proof construction?",c:["Working backward from the target conclusion to determine which rule can generate it","Working forward from the premises only","Building truth tables for all subformulas","Counting the number of lines in a proof"],a:0,e:"Goal analysis involves working backward from the conclusion to determine the required intermediate steps and subproof setups."},
+ {p:"When applying Goal Analysis to a goal of the form P --> (Q --> R), what initial subproof structure is recommended?",c:["Assume P, then inside that subproof assume Q, and aim to derive R","Assume ~(P --> (Q --> R))","Assume P & Q and derive R in one line without subproofs","Apply Transposition to the goal first"],a:0,e:"Nested conditionals are proven by nesting subproofs: assume P, then assume Q, derive R, and discharge both step-by-step."},
+ {p:"If your target conclusion is a single atomic sentence letter 'P' and no direct inference rules apply, what structural strategy should you attempt?",c:["Negation Introduction (~I) by assuming ~P and aiming for a contradiction","Conditional Introduction (-->I) by assuming P","Disjunction Introduction (vI)","Biconditional Introduction (<->I)"],a:0,e:"When an atomic target cannot be derived directly, assume its negation (~P) in a subproof to derive a contradiction and conclude ~~P (then P by DN)."},
+ {p:"In a complex proof where a premise is (A & B) v (C & D), what strategy should be used to reach a goal G?",c:["Use vE by assuming (A & B) in Subproof 1 to derive G, and assuming (C & D) in Subproof 2 to derive G","Apply &E directly to the disjunction","Assume ~G and use DS","Apply Exportation to the disjunction"],a:0,e:"Disjunction Elimination (vE) requires showing that the goal G follows independently from each disjunct."},
+ {p:"Suppose you have a premise P --> Q and your goal is ~P. What additional statement do you need to derive ~P via Modus Tollens (MT)?",c:["~Q","Q","P","P & Q"],a:0,e:"Modus Tollens (MT) requires the negation of the consequent (~Q) to infer ~P."},
+ {p:"Suppose you have a premise ~P v Q and your goal is Q. What line do you need to derive Q via Disjunctive Syllogism (DS)?",c:["~~P (or P)","~Q","Q --> P","P & Q"],a:0,e:"Disjunctive Syllogism (DS) requires the negation of the first disjunct (~~P or P) to yield Q."},
+ {p:"When utilizing an Equivalence Rule (such as DM or MI) during a proof, how does its application scope differ from Basic Inference Rules?",c:["Equivalence rules can be applied to subformulas within a line, whereas basic rules apply only to whole lines","Equivalence rules apply only inside subproofs","Basic rules can be applied backwards, whereas equivalence rules cannot","Equivalence rules require two lines, basic rules require one"],a:0,e:"Equivalence rules express logical equivalences and can be validly applied to subformulas."},
+ {p:"If you assume hypothesis H on Line 3 of a proof and derive a contradiction (K & ~K) on Line 7, what line can you write on Line 8?",c:["~H by 3-7 ~I","H by 3-7 -->I","K by &E","H --> (K & ~K) by 3-7 ~I"],a:0,e:"Discharging hypothesis H after reaching a contradiction yields ~H via Negation Introduction (~I)."},
+ {p:"Is it permissible to cite a line from a discharged subproof if that line contains a tautology?",c:["No, lines inside a discharged subproof are permanently closed and can never be cited","Yes, tautologies remain open","Yes, if cited by MT","Only in capstone problems"],a:0,e:"Once a subproof is discharged, all lines within its scope are closed and strictly inaccessible."},
+ {p:"What happens to open subproof scope lines when a formal proof reaches its final main conclusion?",c:["All subproofs must be fully discharged, leaving no open scope lines","One subproof may remain open if it contains a premise","Scope lines extend to the end of the page","Subproofs are automatically closed by the last line"],a:0,e:"A valid completed proof must have all hypotheses discharged, meaning no open subproof scope lines remain."},
+ {p:"When checking whether a symbolized argument is valid before starting a proof, which capstone tool is used?",c:["A truth table","A subproof","An informal fallacy list","Standard form"],a:0,e:"Building a truth table checks whether the argument form is valid prior to constructing the formal proof."},
+ {p:"In Goal Analysis, if the goal is A v B and you already have A on an available line, what rule immediately yields the goal?",c:["Disjunction Introduction (vI)","Disjunction Elimination (vE)","Conjunction Introduction (&I)","Material Implication (MI)"],a:0,e:"Disjunction Introduction (vI) allows you to infer A v B from A on any step."},
+ {p:"In Goal Analysis, if the goal is A & B, what two sub-goals must you establish first?",c:["Derive A on one line and derive B on another line","Derive A --> B","Assume ~(A & B)","Derive A v B"],a:0,e:"Conjunction Introduction (&I) requires deriving both A and B on separate accessible lines."},
+ {p:"When proving a theorem of the form ⊦ (P & Q) --> P, what is the complete strategy?",c:["Assume (P & Q) in a subproof, extract P by &E, and discharge to get (P & Q) --> P by -->I","Assume ~P and use ~I","Apply De Morgan to (P & Q)","Use truth tables only"],a:0,e:"Assuming the antecedent (P & Q), deriving P via &E, and discharging yields the theorem via -->I."},
+ {p:"Suppose an argument in standard form has an unstated premise needed for validity. What should you do before symbolization?",c:["Supply the implicit premise explicitly","Skip standard form and move directly to the proof","Declare the argument invalid immediately","Symbolize only stated premises"],a:0,e:"An implicit premise required for deductive validity must be made explicit during standard form analysis."},
+ {p:"If a premise is ~(P & Q), which equivalence rule allows you to transform it into ~P v ~Q to set up Disjunctive Syllogism or vE?",c:["De Morgan (DM)","Material Implication (MI)","Exportation (EXP)","Transposition (TRANS)"],a:0,e:"De Morgan's Law (DM) converts ~(P & Q) into ~P v ~Q."},
+ {p:"If a premise is P --> (Q --> R), which equivalence rule transforms it into (P & Q) --> R?",c:["Exportation (EXP)","Transposition (TRANS)","Double Negation (DN)","Material Implication (MI)"],a:0,e:"Exportation (EXP) converts between P --> (Q --> R) and (P & Q) --> R."},
+ {p:"If a premise is ~P --> Q, which equivalence rule transforms it into P v Q?",c:["Material Implication (MI)","De Morgan (DM)","Transposition (TRANS)","Exportation (EXP)"],a:0,e:"Material Implication (MI) converts ~P --> Q into ~~P v Q, which simplifies to P v Q via DN."},
+ {p:"When constructing a subproof for ~I, what type of formula must be derived on the final line of that subproof?",c:["An explicit contradiction of the form B & ~B","A tautology","A conditional statement","An atomic sentence letter"],a:0,e:"Negation Introduction (~I) requires deriving an explicit contradiction (B & ~B) inside the subproof."},
+ {p:"Can a line inside a nested subproof cite a line from an outer active subproof?",c:["Yes, lines in outer active subproofs are accessible to deeper nested subproofs","No, outer lines are closed","Only if the outer line is a conditional","Never"],a:0,e:"Outer active subproof lines remain accessible to deeper nested subproofs until the outer hypothesis is discharged."},
+ {p:"What is the primary purpose of constructing a formal proof in propositional calculus?",c:["To demonstrate that the conclusion logically follows from the premises step-by-step using valid rules","To find counterexample rows","To translate English sentences into symbols","To calculate truth values"],a:0,e:"A formal proof establishes valid entailment by constructing a step-by-step derivation."},
+ {p:"If a truth table reveals a counterexample row (all premises true and conclusion false), what does this tell you about constructing a formal proof?",c:["No valid formal proof exists because the argument is invalid","A proof can still be constructed using ~I","The proof requires more subproofs","The argument is a theorem"],a:0,e:"If an argument is invalid (has a counterexample row), no valid formal proof can be constructed."},
+ {p:"In capstone problems, what role does putting the argument in standard form play?",c:["It clarifies the precise inferential structure and identifies premises and ultimate conclusion","It computes the truth table automatically","It replaces formal proofs","It converts symbols back to English"],a:0,e:"Standard form separates premises from the ultimate conclusion and makes implicit claims explicit."},
+ {p:"Which rule allows you to infer P from ~~P at any point in a proof?",c:["Double Negation (DN)","De Morgan (DM)","Transposition (TRANS)","Modus Tollens (MT)"],a:0,e:"Double Negation (DN) removes or adds double negations."},
+ {p:"When strategy planning for a capstone problem, what should you do if your goal is ~~(A v B)?",c:["Aim to derive A v B first, then apply Double Negation (DN)","Use Exportation directly","Assume ~A and ~B in separate proofs","Apply DM to the goal"],a:0,e:"Deriving A v B and applying DN is the direct path to ~~(A v B)."},
+ {p:"If you have derived A --> B and B --> C, what rule lets you directly infer A --> C in one step?",c:["Hypothetical Syllogism (HS)","Modus Tollens (MT)","Disjunctive Syllogism (DS)","Exportation (EXP)"],a:0,e:"Hypothetical Syllogism (HS) bridges conditional chains directly."},
+ {p:"Why is Goal Analysis called 'working backward'?",c:["Because you start by examining the form of the target conclusion and determine what rule can derive it","Because you write the proof from bottom to top on the page","Because you reverse the truth table rows","Because you undo previous proof lines"],a:0,e:"Goal analysis works backward by inspecting the target conclusion to select the appropriate rule and subproof structure."}
+]}
+];
+
+var YN = ["Yes","No"];
+var sel=document.getElementById('week'), panel=document.getElementById('panel');
+
+UNITS.forEach(function(u){
+  var g=document.createElement('optgroup');
+  g.label=u.label;
+  u.weeks.forEach(function(idx){
+    var o=document.createElement('option');
+    o.value=idx; o.textContent=MODULES[idx].t;
+    g.appendChild(o);
+  });
+  sel.appendChild(g);
+});
+
+function unitOf(idx){
+  for(var i=0;i<UNITS.length;i++){ if(UNITS[i].weeks.indexOf(idx)>-1) return UNITS[i].label; }
+  return '';
+}
+
+var mi=null,qi=0,score=0,skipped=0,revealedCount=0,answered=false;
+var shown=1, results=[];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/>/g,'&gt;');}
+function norm(s){return s.trim().replace(/\s+/g,'').replace(/[\u00ac!]/g,'~').replace(/[\u2022\u2227*]/g,'&').replace(/[\u2228+]/g,'v').replace(/[\u2192\u2283\u21d2]/g,'-->').replace(/[\u2194\u2261]/g,'<->').toUpperCase();}
+function wnorm(s){return s.toLowerCase().replace(/[\u201c\u201d\u2018\u2019"'.,;:!?()]/g,'').replace(/\s+/g,' ').trim();}
+
+sel.onchange=function(){
+  if(sel.value===''){mi=null;panel.innerHTML='<p class="hint">Select a weekly module above to start practicing.</p>';return;}
+  mi=+sel.value; qi=0; score=0; skipped=0; revealedCount=0;
+  if(MODULES[mi].applet){renderAppletTrainer();}
+  else if(MODULES[mi].stepwise){startStepQ();} else {render();}
+};
+
+function unitBanner(){ return '<p class="unitnow">'+esc(unitOf(mi))+'</p>'; }
+function statusLine(){
+  var s='Score: '+score+' correct';
+  if(skipped) s+=' \u00b7 skipped: '+skipped;
+  if(revealedCount) s+=' \u00b7 revealed: '+revealedCount;
+  return '<p class="score">'+s+'</p>';
+}
+
+/* ================= stepwise engine (Weeks 1-3) ================= */
+function startStepQ(){ shown=1; results=[]; renderStep(); }
+
+function nextOrFinish(){
+  var total=MODULES[mi].q.length;
+  if(qi+1<total){ qi++; startStepQ(); } else { finishStep(); }
+}
+
+function boxLabel(kind){
+  if(kind==='def') return 'Terms &amp; Definitions';
+  if(kind==='classify') return 'Argument';
+  if(kind==='fallacy') return 'Passage';
+  return 'Passage';
+}
+
+function renderStep(){
+  var mod=MODULES[mi], q=mod.q[qi], total=mod.q.length, nsteps=q.steps.length;
+  var h=unitBanner();
+  h+='<div class="qcounter">Question '+(qi+1)+' of '+total+'</div>';
+  if(q.kind==='def'){
+    h+='<div class="passage"><b>'+boxLabel(q.kind)+'</b>'+esc(q.dir||'Definitions check.')+'</div>';
+  } else {
+    h+='<div class="passage"><b>'+boxLabel(q.kind)+'</b>'+esc(q.passage)+'</div>';
+  }
+
+  for(var k=0;k<shown;k++){
+    var st=q.steps[k], r=results[k];
+    var rev = r && r.rev;
+    h+='<div class="step'+(r?' done':'')+'"><div class="steplabel">Step '+(k+1)+'</div>';
+    h+='<p class="prompt">'+esc(st.p)+'</p>';
+
+    if(st.yn){
+      h+='<div class="yn">';
+      for(var y=0;y<2;y++){
+        var cls='';
+        if(r){
+          if(rev){ cls = (y===st.a) ? ' rev' : ' dim'; }
+          else if(y===st.a) cls=' ok';
+          else if(y===r.choice) cls=' no';
+          else cls=' dim';
+        }
+        h+='<button type="button" class="ynb'+cls+'" data-step="'+k+'" data-val="'+y+'"'+(r?' disabled':'')+'>'+YN[y]+'</button>';
+      }
+      h+='</div>';
+
+    } else if(st.sel){
+      var scls = r ? (rev?'locked revbox':(r.ok?'locked okbox':'locked nobox')) : '';
+      h+='<select class="fsel '+scls+'" id="fs'+k+'" data-step="'+k+'"'+(r?' disabled':'')+'>';
+      h+='<option value="">— Select a fallacy from the list —</option>';
+      for(var f=0;f<FALLACIES.length;f++){
+        var picked = r ? (rev ? (f===st.a) : (f===r.choice)) : false;
+        h+='<option value="'+f+'"'+(picked?' selected':'')+'>'+esc(FALLACIES[f])+'</option>';
+      }
+      h+='</select>';
+      if(!r){
+        h+='<p class="hint">All 17 official fallacies are listed in alphabetical order.</p>';
+        h+='<div class="row"><button class="act" id="chk" data-step="'+k+'">Check Step '+(k+1)+'</button></div>';
+      }
+
+    } else if(st.txt){
+      var boxcls = r ? (rev ? ' locked revbox' : (r.ok ? ' locked okbox' : ' locked nobox')) : '';
+      h+='<input type="text" class="tbox'+boxcls+'" id="tb'+k+'" data-step="'+k+'"'
+        +' placeholder="Type your answer here" autocomplete="off" autocapitalize="off" spellcheck="false"'
+        +(r?' value="'+esc(rev?st.show:r.text)+'" disabled':'')+'>';
+      if(!r){
+        h+='<p class="hint">Capitalisation, quotation marks and punctuation are ignored.</p>';
+        h+='<div class="row"><button class="act" id="chk" data-step="'+k+'">Check Step '+(k+1)+'</button></div>';
+      }
+
+    } else {
+      h+='<ul class="choices">';
+      for(var i=0;i<st.c.length;i++){
+        var c2='';
+        if(r){
+          if(rev){ if(i===st.a) c2=' rev'; }
+          else if(i===st.a) c2=' ok';
+          else if(i===r.choice) c2=' no';
+        }
+        h+='<li><label class="opt'+c2+'"><input type="radio" name="s'+k+'" value="'+i+'"'
+          +(r?' disabled':'')+(r&&!rev&&r.choice===i?' checked':'')+(rev&&i===st.a?' checked':'')+'><span>'+esc(st.c[i])+'</span></label></li>';
+      }
+      h+='</ul>';
+      if(!r) h+='<div class="row"><button class="act" id="chk" data-step="'+k+'">Check Step '+(k+1)+'</button></div>';
+    }
+
+    if(r){
+      var showAns;
+      if(st.yn) showAns=YN[st.a];
+      else if(st.sel) showAns=FALLACIES[st.a];
+      else if(st.txt) showAns=st.show;
+      else showAns=st.c[st.a];
+      if(rev){
+        h+='<div class="fb rev"><strong>Answer revealed:</strong> “'+esc(showAns)+'”. '+esc(st.e)+'</div>';
+      } else {
+        h+='<div class="fb '+(r.ok?'ok':'no')+'">'+(r.ok?'<strong>✓ Correct.</strong> '
+          :'<strong>✕ Not quite.</strong> The correct answer is “'+esc(showAns+'”')+'. ')+esc(st.e)+'</div>';
+      }
+    }
+    h+='</div>';
+  }
+
+  var complete=(results.length===nsteps && results[nsteps-1]);
+  if(complete){
+    var note;
+    if(q.kind==='def') note='Definitions check complete.';
+    else if(q.kind==='classify') note='Classification complete. Remember: whether an argument is inductive or deductive is a separate question from whether it is a good one.';
+    else if(q.kind==='fallacy') note='Fallacy identified. On the exam, name the fallacy and say briefly why the reasoning fails.';
+    else if(nsteps===1) note='This passage makes no inferential claim, so there are no indicator words, no conclusion and no premises to identify — the analysis ends here.';
+    else note='Analysis complete: indicator words, conclusion and premises identified, so the argument is now in standard form.';
+    h+='<div class="done-note">'+note+'</div>';
+  }
+
+  h+='<div class="row">';
+  if(complete){
+    h+='<button class="act" id="nxt">'+(qi+1<total?'Next question →':'Finish module ✓')+'</button>';
+  } else {
+    h+='<button class="act warn" id="revall">Reveal all answers</button>';
+  }
+  h+='<button class="act ghost" id="prev" '+(qi===0?'disabled':'')+'>← Previous question</button>';
+  if(!complete){
+    h+='<button class="act ghost" id="skip">Skip question ⇨</button>';
+  }
+  h+='<button class="act ghost" id="rst">Restart module</button></div>';
+
+  h+='<div class="bar"><i style="width:'+(((qi+(complete?1:0))/total)*100)+'%"></i></div>';
+  h+=statusLine();
+  panel.innerHTML=h;
+
+  function submitChoice(k,val){
+    var ok=(val===q.steps[k].a);
+    results[k]={choice:val,ok:ok};
+    if(ok) score++;
+    if(k+1<q.steps.length) shown=k+2;
+    renderStep();
+  }
+  function submitText(k,val){
+    var st=q.steps[k], v=wnorm(val);
+    if(!v) return;
+    var ok=st.accept.some(function(a){return wnorm(a)===v;});
+    results[k]={text:val.trim(),ok:ok};
+    if(ok) score++;
+    if(k+1<q.steps.length) shown=k+2;
+    renderStep();
+  }
+
+  Array.prototype.forEach.call(panel.querySelectorAll('.ynb'),function(b){
+    b.onclick=function(){ submitChoice(+b.getAttribute('data-step'), +b.getAttribute('data-val')); };
+  });
+
+  var chk=document.getElementById('chk');
+  if(chk) chk.onclick=function(){
+    var k=+chk.getAttribute('data-step');
+    var dd=document.getElementById('fs'+k);
+    if(dd){ if(dd.value==='') return; submitChoice(k,+dd.value); return; }
+    var box=document.getElementById('tb'+k);
+    if(box){ submitText(k,box.value); return; }
+    var pick=panel.querySelector('input[name=s'+k+']:checked');
+    if(!pick) return;
+    submitChoice(k,+pick.value);
+  };
+
+  var live=panel.querySelector('input.tbox:not([disabled])');
+  if(live){
+    live.focus();
+    live.onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); submitText(+live.getAttribute('data-step'), live.value); } };
+  }
+
+  var rev=document.getElementById('revall');
+  if(rev) rev.onclick=function(){
+    for(var k2=0;k2<q.steps.length;k2++){ if(!results[k2]) results[k2]={rev:true}; }
+    shown=q.steps.length;
+    revealedCount++;
+    renderStep();
+  };
+
+  var sk=document.getElementById('skip');
+  if(sk) sk.onclick=function(){ skipped++; nextOrFinish(); };
+
+  var n=document.getElementById('nxt');
+  if(n) n.onclick=nextOrFinish;
+  var prv=document.getElementById('prev');
+  if(prv) prv.onclick=function(){ if(qi>0){ qi--; startStepQ(); } };
+  document.getElementById('rst').onclick=function(){ qi=0; score=0; skipped=0; revealedCount=0; startStepQ(); };
+}
+
+function finishStep(){
+  var mod=MODULES[mi], steps=0;
+  mod.q.forEach(function(x){steps+=x.steps.length;});
+  var pct=Math.round(score/steps*100);
+  panel.innerHTML=unitBanner()
+   +'<div class="qcounter">Module complete — '+mod.q.length+' of '+mod.q.length+'</div>'
+   +'<p class="prompt">You answered <strong>'+score+' / '+steps+'</strong> steps correctly ('+pct+'%).</p>'
+   +'<p class="hint">Questions skipped: '+skipped+' · questions revealed: '+revealedCount+'</p>'
+   +'<div class="row"><button class="act" id="again">Restart this module</button></div>';
+  document.getElementById('again').onclick=function(){ qi=0; score=0; skipped=0; revealedCount=0; startStepQ(); };
+}
+
+/* ================= Interactive Truth Table Applet (Week 6) ================= */
+
+//---LOGIC--- (pure functions; no DOM)
+const NOT='~',AND='&',OR='v',IMP='-->',IFF='<->';
+const BINOPS={and:AND,or:OR,imp:IMP,iff:IFF};
+const OPNAME={not:NOT,and:AND,or:OR,imp:IMP,iff:IFF};
+const PARENRULE='Rule: every binary operator (& v --> <->) needs its own pair of parentheses. Only the outermost pair may be left off.';
+
+function lex(src){
+  const o=[],push=(k,ch,raw)=>o.push({k,ch,raw,col:o.length});
+  let i=0,m;
+  while(i<src.length){
+    const c=src[i],rest=src.slice(i);
+    if(/\s/.test(c)){i++;continue;}
+    if((m=/^<\s*[-\u2010-\u2015][-\u2010-\u2015\s]*>/.exec(rest))||(m=/^<\s*=[=\s]*>/.exec(rest))||(m=/^[\u2194\u21D4\u2261]/.exec(rest))){
+      push('iff',IFF,m[0]);i+=m[0].length;continue;}
+    if((m=/^[-\u2010-\u2015][-\u2010-\u2015\s]*>/.exec(rest))||(m=/^=[=\s]*>/.exec(rest))||(m=/^[\u2192\u2283\u21D2]/.exec(rest))){
+      push('imp',IMP,m[0]);i+=m[0].length;continue;}
+    if(/[~!\u00AC\u223C]/.test(c)){push('not',NOT,c);i++;continue;}
+    if(/[&\u2227^\u2022\u00B7]/.test(c)){push('and',AND,c);i++;continue;}
+    if(/[vV\u2228|]/.test(c)){push('or',OR,c);i++;continue;}
+    if(c==='('||c==='[' ){push('lp','(',c);i++;continue;}
+    if(c===')'||c===']'){push('rp',')',c);i++;continue;}
+    if(/[A-Za-z]/.test(c)){
+      const lc=c.toLowerCase();
+      if(lc==='t'||lc==='f')throw Error('The letters t and f are not used as variables here, because T and F are the truth values. Use p, q, r or s.');
+      push('atom',lc,c);i++;continue;}
+    if(/[-\u2010-\u2015>=<]/.test(c))
+      throw Error('A conditional is written  -->  and a biconditional  <-> . Spaces and doubled dashes are fine, but the arrow needs its ">". Check the "'+c+'".');
+    throw Error('I cannot read the character "'+c+'". The operators are  ~  &  v  -->  <->  with parentheses.');
+  }
+  if(!o.length)throw Error('There is nothing on this line.');
+  return o;
+}
+
+function foreign(t){
+  const raw=t.raw.replace(/\s+/g,'');
+  if(t.k==='imp')return !/^-+>$/.test(raw);
+  if(t.k==='iff')return !/^<-+>$/.test(raw);
+  if(t.k==='atom'||t.k==='lp'||t.k==='rp')return false;
+  return t.raw!==t.ch;
+}
+
+function parse(ts){
+  let i=0;
+  const at=()=>ts[i];
+  function unit(){
+    const t=ts[i];
+    if(!t)throw Error('The formula stops too soon — something is missing at the end.');
+    if(t.k==='not'){i++;return{k:'not',col:t.col,a:unit()};}
+    if(t.k==='lp'){
+      i++;
+      if(at()&&at().k==='rp')throw Error('There is an empty pair of parentheses.');
+      const e=level();
+      if(!at())throw Error('A closing parenthesis is missing.');
+      if(at().k!=='rp')throw Error('Something is wrong just before a closing parenthesis. '+PARENRULE);
+      i++;return e;}
+    if(t.k==='atom'){i++;return{k:'atom',col:t.col,ch:t.ch};}
+    if(t.k==='rp')throw Error('There is a ")" with nothing for it to close.');
+    throw Error('The operator "'+t.ch+'" appears where a variable, a ~ or a "(" should be.');
+  }
+  function level(){
+    const l=unit(),t=at();
+    if(!t||t.k==='rp')return l;
+    if(!BINOPS[t.k])throw Error('Two parts are written next to each other with no operator between them (at "'+t.ch+'").');
+    i++;
+    const r=unit(),nx=at();
+    if(nx&&BINOPS[nx.k])
+      throw Error(`Not well formed. "${t.ch}" and then "${nx.ch}" appear at the same level, with no parentheses to say which groups first, so the formula is ambiguous. `
+        +(t.ch===nx.ch?'Even with the same operator twice the grouping has to be shown'
+                      :'The two groupings say different things')
+        +`: write   ( … ${t.ch} … ) ${nx.ch} …   or   … ${t.ch} ( … ${nx.ch} … ) .\n`+PARENRULE);
+    if(nx&&(nx.k==='atom'||nx.k==='not'||nx.k==='lp'))
+      throw Error('Two parts are written next to each other with no operator between them.');
+    return{k:t.k,col:t.col,a:l,b:r};
+  }
+  const e=level();
+  if(i!==ts.length)throw Error('There is something left over at the end: "'+ts[i].ch+'". Check the parentheses. '+PARENRULE);
+  return e;
+}
+
+function ev(n,e){switch(n.k){
+  case 'atom':return e[n.ch];
+  case 'not':return !ev(n.a,e);
+  case 'and':return ev(n.a,e)&&ev(n.b,e);
+  case 'or':return ev(n.a,e)||ev(n.b,e);
+  case 'imp':return !ev(n.a,e)||ev(n.b,e);
+  case 'iff':return ev(n.a,e)===ev(n.b,e);}}
+
+function nodes(n,a=[]){if(n.k!=='atom'){nodes(n.a,a);if(n.b)nodes(n.b,a);}a.push(n);return a;}
+function deps(n){return n.k==='atom'?[]:n.b?[n.a.col,n.b.col]:[n.a.col];}
+function mkRows(as){const n=as.length,o=[];for(let i=0;i<2**n;i++){const e={};as.forEach((a,k)=>e[a]=!((i>>(n-1-k))&1));o.push(e);}return o;}
+function canonStrings(as){return mkRows(as).map(e=>as.map(a=>e[a]?'T':'F').join(''));}
+function classify(col){return col.every(Boolean)?'taut':col.some(Boolean)?'cgcy':'contra';}
+function differing(u,v){const o=[];for(let r=0;r<u.length;r++)if(u[r]!==v[r])o.push(r);return o;}
+function premRows(cols,nPrem){const out=[];for(let r=0;r<cols[0].length;r++){
+  let all=true;for(let i=0;i<nPrem;i++)if(!cols[i][r])all=false;if(all)out.push(r);}return out;}
+function counterexamples(cols,nPrem){return premRows(cols,nPrem).filter(r=>!cols[nPrem][r]);}
+
+//---GENERATOR---
+const GTRY=5000;
+let RS=1;
+function seedRNG(s){RS=(s>>>0)||1;}
+function rnd(){RS=RS+0x6D2B79F5|0;let t=RS;t=Math.imul(t^t>>>15,1|t);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+const ri=n=>Math.floor(rnd()*n);
+const rpick=a=>a[ri(a.length)];
+function rwt(w){let t=0;for(const k in w)t+=w[k];let x=rnd()*t;for(const k in w){x-=w[k];if(x<0)return k;}return Object.keys(w)[0];}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=ri(i+1);const z=a[i];a[i]=a[j];a[j]=z;}return a;}
+
+function mkTree(vars,n){
+  if(n<=0)return{k:'atom',ch:rpick(vars)};
+  const k=rwt({not:2,and:3,or:3,imp:4,iff:2});
+  if(k==='not')return{k:'not',a:mkTree(vars,n-1)};
+  const l=ri(n);
+  return{k,a:mkTree(vars,l),b:mkTree(vars,n-1-l)};
+}
+function mkRoot(vars,n,k){
+  if(k==='not')return{k:'not',a:mkTree(vars,Math.max(1,n-1))};
+  const l=ri(n);
+  return{k,a:mkTree(vars,l),b:mkTree(vars,n-1-l)};
+}
+function cp(n){return n.k==='atom'?{k:'atom',ch:n.ch}:n.b?{k:n.k,a:cp(n.a),b:cp(n.b)}:{k:n.k,a:cp(n.a)};}
+function show(n){return n.k==='atom'?n.ch:n.k==='not'?NOT+show(n.a):'('+show(n.a)+' '+OPNAME[n.k]+' '+show(n.b)+')';}
+function showTop(n){const s=show(n);return(n.b&&s.charAt(0)==='(')?s.slice(1,-1):s;}
+function clean(n){
+  if(n.k==='atom')return n;
+  if(n.k==='not'){const a=clean(n.a);return a.k==='not'?a.a:{k:'not',a};}
+  return{k:n.k,a:clean(n.a),b:clean(n.b)};
+}
+function subs(n,a=[]){a.push(n);if(n.k!=='atom'){subs(n.a,a);if(n.b)subs(n.b,a);}return a;}
+function nOps(n){return subs(n).filter(x=>x.k!=='atom').length;}
+function opsig(n){return subs(n).filter(x=>x.k!=='atom').map(x=>x.k).sort().join('.');}
+function varsIn(n,s){s=s||new Set();if(n.k==='atom')s.add(n.ch);else{varsIn(n.a,s);if(n.b)varsIn(n.b,s);}return s;}
+function colTree(n,as){return mkRows(as).map(e=>ev(n,e));}
+
+function hasDoubleNeg(n){return subs(n).some(x=>x.k==='not'&&x.a.k==='not');}
+function twinChildren(n){return subs(n).some(x=>x.b&&show(x.a)===show(x.b));}
+function cleanSubs(n,as){
+  return subs(n).slice(1).every(x=>{const c=colTree(x,as);return c.some(Boolean)&&!c.every(Boolean);});}
+function relevant(n,as){
+  const rows=mkRows(as);
+  return as.every(a=>rows.some(e=>{const f={};for(const k in e)f[k]=e[k];f[a]=!f[a];return ev(n,e)!==ev(n,f);}));}
+function okForm(n,as,needRel){
+  if(varsIn(n).size!==as.length)return false;
+  if(hasDoubleNeg(n)||twinChildren(n))return false;
+  if(!cleanSubs(n,as))return false;
+  if(needRel&&!relevant(n,as))return false;
+  return true;
+}
+
+function verifyStr(str,as,tree){
+  try{const t=parse(lex(str));return mkRows(as).every(e=>ev(t,e)===ev(tree,e));}
+  catch(e){return false;}
+}
+
+const RULES=[
+ n=>n.k==='not'&&n.a.k==='and'?{k:'or',a:{k:'not',a:n.a.a},b:{k:'not',a:n.a.b}}:null,
+ n=>n.k==='not'&&n.a.k==='or'?{k:'and',a:{k:'not',a:n.a.a},b:{k:'not',a:n.a.b}}:null,
+ n=>n.k==='or'&&n.a.k==='not'&&n.b.k==='not'?{k:'not',a:{k:'and',a:n.a.a,b:n.b.a}}:null,
+ n=>n.k==='and'&&n.a.k==='not'&&n.b.k==='not'?{k:'not',a:{k:'or',a:n.a.a,b:n.b.a}}:null,
+ n=>n.k==='imp'?{k:'imp',a:{k:'not',a:n.b},b:{k:'not',a:n.a}}:null,
+ n=>n.k==='imp'?{k:'or',a:{k:'not',a:n.a},b:n.b}:null,
+ n=>n.k==='or'&&n.a.k==='not'?{k:'imp',a:n.a.a,b:n.b}:null,
+ n=>n.k==='not'&&n.a.k==='imp'?{k:'and',a:n.a.a,b:{k:'not',a:n.a.b}}:null,
+ n=>n.k==='and'&&n.b.k==='not'?{k:'not',a:{k:'imp',a:n.a,b:n.b.a}}:null,
+ n=>n.k==='iff'?{k:'and',a:{k:'imp',a:n.a,b:n.b},b:{k:'imp',a:n.b,b:n.a}}:null,
+ n=>n.k==='iff'?{k:'or',a:{k:'and',a:n.a,b:n.b},b:{k:'and',a:{k:'not',a:n.a},b:{k:'not',a:n.b}}}:null,
+ n=>n.k==='imp'&&n.a.k==='and'?{k:'imp',a:n.a.a,b:{k:'imp',a:n.a.b,b:n.b}}:null,
+ n=>n.k==='imp'&&n.b.k==='imp'?{k:'imp',a:{k:'and',a:n.a,b:n.b.a},b:n.b.b}:null,
+ n=>n.k==='and'&&n.b.k==='or'?{k:'or',a:{k:'and',a:n.a,b:n.b.a},b:{k:'and',a:n.a,b:n.b.b}}:null,
+ n=>n.k==='or'&&n.b.k==='and'?{k:'and',a:{k:'or',a:n.a,b:n.b.a},b:{k:'or',a:n.a,b:n.b.b}}:null,
+ n=>(n.k==='and'||n.k==='or'||n.k==='iff')?{k:n.k,a:n.b,b:n.a}:null];
+const PERTURB=[
+ n=>n.k==='and'?{k:'or',a:n.a,b:n.b}:null,
+ n=>n.k==='or'?{k:'and',a:n.a,b:n.b}:null,
+ n=>n.k==='imp'?{k:'imp',a:n.b,b:n.a}:null,
+ n=>n.k==='imp'?{k:'iff',a:n.a,b:n.b}:null,
+ n=>n.k==='iff'?{k:'imp',a:n.a,b:n.b}:null,
+ n=>n.k==='not'?n.a:null,
+ n=>n.k!=='not'?{k:'not',a:n}:null];
+
+function paths(n,p,out){p=p||[];out=out||[];out.push(p);
+  if(n.k!=='atom'){paths(n.a,p.concat('a'),out);if(n.b)paths(n.b,p.concat('b'),out);}return out;}
+function getAt(n,p){let x=n;for(let i=0;i<p.length;i++)x=x[p[i]];return x;}
+function setAt(n,p,v){if(!p.length)return v;let x=n;for(let i=0;i<p.length-1;i++)x=x[p[i]];x[p[p.length-1]]=v;return n;}
+function applyOne(root,set){
+  const ps=shuffle(paths(root));
+  for(const p of ps){
+    const node=getAt(root,p),fs=shuffle(set.slice());
+    for(const f of fs){const out=f(node);if(out)return setAt(cp(root),p,cp(out));}}
+  return null;
+}
+const rewriteOnce=r=>applyOne(r,RULES),perturbOnce=r=>applyOne(r,PERTURB);
+
+function varSet(n){return['p','q','r'].slice(0,n);}
+function genFormula(){
+  const as=varSet(rnd()<0.4?2:3);
+  for(let t=0;t<GTRY;t++){
+    const n=clean(mkTree(as,2+ri(4)));
+    const c=nOps(n);if(c<3||c>5)continue;
+    if(!okForm(n,as,true))continue;
+    const s=showTop(n);
+    if(!verifyStr(s,as,n))continue;
+    return s;}
+  return null;
+}
+function genClassify(){
+  const target=rpick(['taut','contra','cgcy']),as=varSet(rnd()<0.55?2:3);
+  const roots=target==='taut'?{imp:5,iff:2,or:2}
+             :target==='contra'?{and:5,iff:2,not:2}
+             :{and:2,or:2,imp:3,iff:2,not:2};
+  for(let t=0;t<GTRY;t++){
+    const n=clean(mkRoot(as,3+ri(3),rwt(roots)));
+    const c=nOps(n);if(c<3||c>6)continue;
+    if(classify(colTree(n,as))!==target)continue;
+    if(!okForm(n,as,target==='cgcy'))continue;
+    const s=showTop(n);
+    if(!verifyStr(s,as,n))continue;
+    return s;}
+  return null;
+}
+function dupCols(cols){for(let i=0;i<cols.length;i++)for(let j=i+1;j<cols.length;j++)
+  if(cols[i].every((x,r)=>x===cols[j][r]))return true;return false;}
+function allNeeded(cols,nP){
+  for(let i=0;i<nP;i++){
+    const c2=cols.filter((_,k)=>k!==i);
+    if(!counterexamples(c2,nP-1).length)return false;}
+  return true;
+}
+function genArgument(){
+  const wantValid=rnd()<0.5,as=varSet(rnd()<0.5?2:3),nPrem=rnd()<0.6?2:3;
+  for(let t=0;t<GTRY;t++){
+    const sents=[];
+    for(let i=0;i<=nPrem;i++)sents.push(clean(mkTree(as,1+ri(3))));
+    if(sents.some(n=>nOps(n)<1||nOps(n)>3))continue;
+    if(sents.some(n=>hasDoubleNeg(n)||twinChildren(n)))continue;
+    if(sents.some(n=>{const c=colTree(n,as);return c.every(Boolean)||!c.some(Boolean);}))continue;
+    if(sents.some(n=>!cleanSubs(n,as)))continue;
+    const used=new Set();sents.forEach(n=>varsIn(n,used));
+    if(used.size!==as.length)continue;
+    const cols=sents.map(n=>colTree(n,as));
+    if(dupCols(cols))continue;
+    const pr=premRows(cols,nPrem),ce=counterexamples(cols,nPrem);
+    if(!pr.length)continue;
+    if(wantValid){if(ce.length)continue;if(!allNeeded(cols,nPrem))continue;}
+    else if(ce.length<1||ce.length>2)continue;
+    const strs=sents.map(showTop);
+    if(strs.some((s,i)=>!verifyStr(s,as,sents[i])))continue;
+    return strs.join('\n');}
+  return null;
+}
+function genCompare(){
+  const wantEq=rnd()<0.5,as=varSet(rnd()<0.5?2:3);
+  for(let t=0;t<GTRY;t++){
+    const A=clean(mkTree(as,2+ri(3)));
+    const cA0=nOps(A);if(cA0<2||cA0>4)continue;
+    if(!okForm(A,as,true))continue;
+    let B=rewriteOnce(A);if(!B)continue;
+    if(rnd()<0.45){const B2=rewriteOnce(B);if(B2)B=B2;}
+    B=clean(B);
+    if(!wantEq){const P=perturbOnce(B);if(!P)continue;B=clean(P);}
+    const cB=nOps(B);if(cB<2||cB>6)continue;
+    if(varsIn(B).size!==as.length)continue;
+    if(hasDoubleNeg(B)||twinChildren(B))continue;
+    if(!cleanSubs(B,as))continue;
+    if(show(A)===show(B))continue;
+    if(wantEq&&opsig(A)===opsig(B))continue;
+    const d=differing(colTree(A,as),colTree(B,as));
+    if(wantEq?d.length!==0:!(d.length===1||d.length===2))continue;
+    const sA=showTop(A),sB=showTop(B);
+    if(!verifyStr(sA,as,A)||!verifyStr(sB,as,B))continue;
+    return sA+'\n'+sB;}
+  return null;
+}
+const GEN={frm:genFormula,cls:genClassify,val:genArgument,cmp:genCompare};
+
+const PRE={
+ops:[
+ ['All five at once',[
+  ['The five operators','p & q\np v q\n~p\np --> q\np <-> q']]],
+ ['One operator at a time',[
+  ['Conjunction — p & q','p & q'],
+  ['Disjunction — p v q','p v q'],
+  ['Negation — ~p','~p'],
+  ['Conditional — p --> q','p --> q'],
+  ['Biconditional — p <-> q','p <-> q']]]],
+frm:[
+ ['Two variables — four rows',[
+  ['Formula #1','~(p v q)'],
+  ['Formula #2','p --> ~q'],
+  ['Formula #3','~p <-> q'],
+  ['Formula #4','(p & q) v ~p'],
+  ['Formula #5','~(p --> q) & p'],
+  ['Formula #6','(p v q) --> (p & q)'],
+  ['Formula #7','~(p <-> q) v ~p']]],
+ ['Three variables — eight rows',[
+  ['Formula #8','(p & q) --> r'],
+  ['Formula #9','~(p v r) <-> q'],
+  ['Formula #10','(p --> q) & (q v ~r)'],
+  ['Formula #11','~(q & (p v r)) <-> (p --> r)'],
+  ['Formula #12','(p <-> q) v (r --> ~p)'],
+  ['Formula #13','~(p --> q) v (q & r)'],
+  ['Formula #14','((p v q) & ~r) --> (q <-> r)']]]],
+val:[
+ ['Two variables — four rows',[
+  ['Argument Form #1','p --> q\np\nq'],
+  ['Argument Form #2','p --> q\n~q\n~p'],
+  ['Argument Form #3','p --> q\nq\np'],
+  ['Argument Form #4','p --> q\n~p\n~q'],
+  ['Argument Form #5','p v q\n~p\nq'],
+  ['Argument Form #6','p v q\np\n~q'],
+  ['Argument Form #7','p <-> q\n~p\n~q'],
+  ['Argument Form #8','~(p & q)\n~q\n~p'],
+  ['Argument Form #9','p <-> q\np v q\np & q']]],
+ ['Three variables — eight rows',[
+  ['Argument Form #10','p --> q\nq --> r\np --> r'],
+  ['Argument Form #11','p v q\np --> r\nq --> r\nr'],
+  ['Argument Form #12','p --> (q v r)\n~q\np --> r'],
+  ['Argument Form #13','(p & q) --> r\np\nq --> r'],
+  ['Argument Form #14','(p v q) --> r\nr\np v q'],
+  ['Argument Form #15','p <-> q\nq <-> r\np <-> r'],
+  ['Argument Form #16','p v q\n~p\n~q\n~r'],
+  ['Argument Form #17','~(p & q)\nq v r\np --> r'],
+  ['Argument Form #18','p --> q\nr --> q\n(p v r) --> q'],
+  ['Argument Form #19','p <-> ~q\nr --> q\n~r --> p']]],
+ ['Four variables — sixteen rows',[
+  ['Argument Form #20','p --> q\nr --> s\np v r\nq v s'],
+  ['Argument Form #21','p --> q\nr --> s\n~q v ~s\n~p v ~r'],
+  ['Argument Form #22','p --> q\nr --> s\nq v s\np v r']]]],
+cls:[
+ ['One variable — two rows',[
+  ['Statement Form #1','p v ~p'],
+  ['Statement Form #2','p & ~p'],
+  ['Statement Form #3','p --> ~p'],
+  ['Statement Form #4','~(p --> p)'],
+  ['Statement Form #5','p <-> ~p']]],
+ ['Two variables — four rows',[
+  ['Statement Form #6','p --> (q --> p)'],
+  ['Statement Form #7','(p --> q) <-> (~q --> ~p)'],
+  ['Statement Form #8','(p <-> q) --> (p & q)'],
+  ['Statement Form #9','~(p & q) <-> (~p v ~q)'],
+  ['Statement Form #10','(p --> q) & (p & ~q)'],
+  ['Statement Form #11','(p v q) --> (p & q)'],
+  ['Statement Form #12','(p & ~q) <-> ~(p --> q)'],
+  ['Statement Form #13','~(p <-> q) v (p <-> ~q)']]],
+ ['Three variables — eight rows',[
+  ['Statement Form #14','((p --> q) & (q --> r)) --> (p --> r)'],
+  ['Statement Form #15','~(p --> q) & (q v r)'],
+  ['Statement Form #16','((p <-> q) & (q <-> r)) --> (p <-> r)'],
+  ['Statement Form #17','((p v q) & ~r) --> (p & ~r)'],
+  ['Statement Form #18','(p --> (q --> r)) <-> ((p & q) --> r)']]]],
+cmp:[
+ ['Two variables — four rows',[
+  ['Pair of Statement Forms #1','~(p & ~q)\np --> q'],
+  ['Pair of Statement Forms #2','~(p --> q)\np & ~q'],
+  ['Pair of Statement Forms #3','p --> q\nq --> p'],
+  ['Pair of Statement Forms #4','p <-> q\n(p & q) v (~p & ~q)'],
+  ['Pair of Statement Forms #5','~(p v q)\n~p & ~q'],
+  ['Pair of Statement Forms #6','~(p & q)\n~p & ~q'],
+  ['Pair of Statement Forms #7','p --> q\n~q --> ~p'],
+  ['Pair of Statement Forms #8','p <-> q\n(p v q) --> (p & q)'],
+  ['Pair of Statement Forms #9','~(p <-> q)\np <-> ~q']]],
+ ['Three variables — eight rows',[
+  ['Pair of Statement Forms #10','p & (q v r)\n(p & q) v (p & r)'],
+  ['Pair of Statement Forms #11','p --> (q --> r)\n(p & q) --> r'],
+  ['Pair of Statement Forms #12','p --> (q --> r)\n(p --> q) --> r'],
+  ['Pair of Statement Forms #13','(p v q) --> r\n(p --> r) & (q --> r)'],
+  ['Pair of Statement Forms #14','(p v q) --> r\n(p --> r) v (q --> r)'],
+  ['Pair of Statement Forms #15','(p <-> q) <-> r\np <-> (q <-> r)'],
+  ['Pair of Statement Forms #16','p --> (q & r)\n(p --> q) & (p --> r)']]]]};
+
+const LBL={
+ ops:"<b>The operators</b>, one per line",
+ frm:"<b>The formula</b> — one line",
+ val:"<b>The argument form</b> — one premise per line, <b>conclusion last</b>",
+ cls:"<b>Statement form(s)</b>, one per line",
+ cmp:"<b>Two statement forms</b>, one per line"};
+const OPTS=['optab','autoCopy','hint','dep','autoMain','defs','anyOrder'];
+const OPTLBL={optab:'show the tables for the five operators',autoCopy:'auto-copy variables into their columns',
+ hint:'highlight columns I can compute next',dep:'highlight the columns feeding the one I\'m filling',
+ autoMain:'auto-highlight the major operator',defs:'definition reminders',
+ anyOrder:'allow a non-standard row order',exam:'Exam mode'};
+const SHOWMAIN=['main','final','prem','ce','verdict','diff','cmpverdict','examval','done'];
+const NOMAIN=['ops','frm'];
+let S={},curEx=null,curGen=null;
+const FLAT={};
+const $=id=>document.getElementById(id);
+const on=id=>$(id)?$(id).checked:false;
+const txt=ts=>ts.map(t=>BINOPS[t.k]?' '+t.ch+' ':t.ch).join('')
+  .replace(/\s+/g,' ').replace(/\(\s+/g,'(').replace(/\s+\)/g,')').trim();
+function defn(html){return on('defs')?`<div class=defn>${html}</div>`:'';}
+
+function appMsg(t,kind){const m=$('app_msg');if(!m)return;m.className='';void m.offsetWidth;m.className=kind||'';m.textContent=t;}
+
+function renderAppletTrainer(){
+  panel.innerHTML = unitBanner() + `
+    <p><label><b>Question type</b><br>
+    <select id=app_mode onchange=appModeChanged()>
+      <option value=ops>Learn the operators — provide the truth table for each operator</option>
+      <option value=frm selected>Construct a truth table for the formula</option>
+      <option value=val>Test an argument form — is it deductively valid?</option>
+      <option value=cls>Classify each statement form — tautology, contradiction, or contingency</option>
+      <option value=cmp>Compare statement forms — are they logically equivalent?</option>
+    </select></label></p>
+
+    <p><label id=app_lbl><b>The formula</b></label>
+    <textarea id=app_sents rows=4 oninput="curEx=null;curGen=null;appExLabel()"></textarea>
+    <span id=app_pal></span><br>
+    <select id=app_preset onchange="if(this.value!==''){appLoadEx(+this.value)}"></select>
+    <button class="act" onclick=appStart()>Start</button>
+    <button class="ghost" onclick=appStepEx(-1) title="previous sample question">&#9664; Prev</button>
+    <button class="ghost" onclick=appStepEx(1) title="next sample question">Next &#9654;</button>
+    <span id=genwrap><br><button class="act gen" onclick=appGenProblem()>New random problem</button>
+    <span class=hint>seed <input type=text id=seedbox size=6> <button class="ghost" onclick=appUseSeed()>Use this seed</button></span></span></p>
+    <div id=app_exlabel></div>
+    <p class=hint>Operators: <code>~</code> not &nbsp; <code>&amp;</code> and &nbsp; <code>v</code> or &nbsp; <code>--&gt;</code> if…then &nbsp; <code>&lt;-&gt;</code> if and only if. Extra spaces and doubled dashes are fine: <code>- &gt;</code>, <code>--&gt;</code>, <code>&lt;--&gt;</code>, <code>&lt; -- &gt;</code> all work.<br>
+    Variables: lower-case letters — <code>p</code>, <code>q</code>, <code>r</code>, <code>s</code>. <code>v</code> always means “or”, and <code>t</code> and <code>f</code> are reserved for the truth values.<br>
+    Every binary operator needs its own pair of parentheses — <code>(p &amp; q) --&gt; ~r</code>, never <code>p &amp; q --&gt; ~r</code>. Only the outermost pair may be left off.</p>
+
+    <fieldset><legend>Assistance</legend>
+    <label><input type=checkbox id=optab checked onchange="appOptChanged('optab')"> show the tables for the five operators</label>
+    <label><input type=checkbox id=autoCopy checked onchange="appOptChanged('autoCopy')"> auto-copy variables into their columns <span class=tag>&#8635; restarts the problem</span></label>
+    <label><input type=checkbox id=hint checked onchange="appOptChanged('hint')"> highlight columns I can compute next</label>
+    <label><input type=checkbox id=dep checked onchange="appOptChanged('dep')"> highlight the columns feeding the one I'm filling</label>
+    <label><input type=checkbox id=autoMain checked onchange="appOptChanged('autoMain')"> auto-highlight the major operator</label>
+    <label><input type=checkbox id=defs checked onchange="appOptChanged('defs')"> definition reminders</label>
+    <label class=alt><input type=checkbox id=anyOrder onchange="appOptChanged('anyOrder')"> allow a non-standard row order (exams and answer keys use the standard one)</label>
+    <label class=exam><input type=checkbox id=exam onchange=appExamChanged()> Exam mode — no help, no checking until the end <span class=tag>&#8635; restarts the problem</span></label>
+    </fieldset>
+
+    <div id=app_ref></div>
+    <div id=app_warn></div>
+    <div id=app_msg>Select a question type or formula above to start the interactive trainer.</div>
+    <div id=app_stage></div>
+    <div id=app_grid></div>
+    <div id=app_final></div>
+  `;
+  appBuildPalette();
+  appModeChanged();
+}
+
+function appBuildPalette(){
+  $('app_pal').innerHTML=['~','&','v','-->','<->','(',')'].map(s=>
+    `<button class="ins ghost" onclick="appIns('${s.replace(/&/g,'&amp;')}')">${esc(s)}</button>`).join('')
+    +' <span class=hint>click to insert</span>';
+}
+function appIns(s){const t=$('app_sents'),a=t.selectionStart,b=t.selectionEnd;
+  t.value=t.value.slice(0,a)+s+t.value.slice(b);t.focus();
+  t.selectionStart=t.selectionEnd=a+s.length;curEx=null;curGen=null;appExLabel();}
+
+function appRenderRef(){
+  if(!on('optab')){$('app_ref').innerHTML='';return;}
+  const rows=[[1,1],[1,0],[0,1],[0,0]],c=b=>b?'T':'F';
+  const body=rows.map(([a,b])=>`<tr><td>${c(a)}</td><td>${c(b)}</td><td>${c(!a)}</td><td>${c(a&&b)}</td>`
+    +`<td>${c(a||b)}</td><td>${c(!a||b)}</td><td>${c(!!a===!!b)}</td></tr>`).join('');
+  $('app_ref').innerHTML='<div class=hint>The five operators — switch this off as soon as you can:</div>'
+    +'<table class=ref><tr><th>p</th><th>q</th><th>~p</th><th>p &amp; q</th><th>p v q</th>'
+    +'<th>p --&gt; q</th><th>p &lt;-&gt; q</th></tr>'+body+'</table>';
+}
+
+function flat(m){if(!FLAT[m])FLAT[m]=PRE[m].reduce((a,[g,items])=>a.concat(items.map(([n,v])=>({g,n,v}))),[]);return FLAT[m];}
+function appFillPresets(m){
+  const f=flat(m);let html='<option value="">— load a sample question —</option>';
+  PRE[m].forEach(([g,items])=>{html+=`<optgroup label="${esc(g)}">`;
+    items.forEach(([n,v])=>{html+=`<option value="${f.findIndex(x=>x.n===n&&x.g===g)}">${esc(n)}</option>`;});
+    html+='</optgroup>';});
+  $('app_preset').innerHTML=html;
+}
+
+function appLoadEx(idx){
+  const f=flat($('app_mode').value);
+  if(idx<0)idx=f.length-1;if(idx>=f.length)idx=0;
+  curEx=idx;curGen=null;$('app_sents').value=f[idx].v;$('app_preset').value=String(idx);appStart();
+}
+function appStepEx(d){appLoadEx(curEx===null?(d>0?0:-1):curEx+d);}
+function appExLabel(){
+  const f=flat($('app_mode').value);
+  $('app_exlabel').innerHTML=curGen!==null
+    ?`<span class=hint>Generated problem &nbsp;·&nbsp; seed <b>${curGen}</b> &nbsp;·&nbsp; keep the seed if you want this same problem back later.</span>`
+    :curEx===null?'<span class=hint>Your own input.</span>'
+    :`<span class=hint>Sample question ${curEx+1} of ${f.length} &nbsp;·&nbsp; <b>${esc(f[curEx].n)}</b> &nbsp;·&nbsp; ${esc(f[curEx].g)}</span>`;
+}
+
+function appRunGen(seed){
+  const m=$('app_mode').value;
+  if(!GEN[m])return false;
+  seedRNG(seed);
+  const out=GEN[m]();
+  if(!out)return false;
+  curEx=null;curGen=seed;$('app_preset').value='';$('seedbox').value=String(seed);
+  $('app_sents').value=out;appStart();
+  return true;
+}
+function appGenProblem(){
+  for(let k=0;k<8;k++){
+    const s=10000+Math.floor(Math.random()*89999);
+    if(appRunGen(s))return;}
+  appMsg('The generator could not find a problem that passes its quality checks. Press the button again.','err');
+}
+function appUseSeed(){
+  const v=parseInt($('seedbox').value,10);
+  if(!(v>=1))return appMsg('Type a seed — a whole number, like the one shown after a generated problem.','err');
+  if(!appRunGen(v))appMsg('Seed '+v+' does not produce a problem that passes the quality checks for this question type. Try another.','err');
+}
+
+function appWorkUnderway(){return !!S.sents&&['atoms','pick','fill','main','final','prem','ce','verdict','diff','cmpverdict','free','examval'].includes(S.stage);}
+function appOptChanged(id){
+  appRenderRef();
+  if(!S.sents)return;
+  if(id==='autoCopy'){
+    if(appWorkUnderway())return appAskRestart(id);
+    if(S.stage==='rows')return appStart();
+    return appDraw();}
+  appDraw();
+}
+function appExamChanged(){
+  if(appWorkUnderway())return appAskRestart('exam');
+  appApplyExam();if(S.sents)appStart();
+}
+function appApplyExam(){
+  const e=on('exam');
+  OPTS.forEach(o=>{const b=$(o);
+    if(b){
+      if(e){b.dataset.was=b.checked?'1':'';b.checked=false;}
+      else if(b.dataset.was!==undefined)b.checked=b.dataset.was==='1';
+      b.disabled=e;b.parentNode.classList.toggle('off',e);
+    }});
+  appRenderRef();
+}
+function appAskRestart(id){
+  const b=$(id),want=b.checked;b.checked=!want;
+  $('app_warn').innerHTML=`<b>Careful — that setting restarts the problem.</b> Turning `
+    +(want?'on':'off')+` “${esc(OPTLBL[id])}” clears the table you have filled in so far and starts this problem again from step 1. Nothing has changed yet.`
+    +`<div><button class="act" onclick="appApplyRestart('${id}',${want})">Restart with the new setting</button>`
+    +`<button class="ghost" onclick=appClearWarn()>Leave the setting as it was</button></div>`;
+}
+function appClearWarn(){$('app_warn').innerHTML='';}
+function appApplyRestart(id,want){
+  $(id).checked=want;appClearWarn();
+  if(id==='exam')appApplyExam();else appRenderRef();
+  appStart();
+}
+function appModeChanged(){
+  const m=$('app_mode').value;
+  $('app_lbl').innerHTML=LBL[m];appFillPresets(m);
+  $('app_grid').innerHTML='';$('app_stage').innerHTML='';$('app_final').innerHTML='';
+  appClearWarn();S={};appRenderRef();
+  $('genwrap').style.display=GEN[m]?'inline':'none';
+  const f=flat(m);curEx=0;curGen=null;$('app_sents').value=f[0].v;$('app_preset').value='0';appExLabel();
+  appMsg('A sample question is loaded. Press Start — or press “New random problem”, or type your own.');
+}
+
+function appStart(){
+  const mode=$('app_mode').value;
+  const src=$('app_sents').value.split('\n').map(x=>x.trim()).filter(Boolean);
+  appClearWarn();
+  try{
+    if(!src.length)throw Error('Enter something first.');
+    if(mode==='frm'&&src.length!==1)throw Error('This question type takes a single formula — put it on one line.');
+    if(mode==='cmp'&&src.length!==2)throw Error('Comparing works on exactly two statement forms — one on each line.');
+    if(mode==='val'&&src.length<2)throw Error('An argument form needs at least one premise and a conclusion — put the conclusion on the last line.');
+    if(mode==='cls'&&src.length>3)throw Error('Three statement forms at a time is plenty.');
+    if(src.length>5)throw Error('Five lines at a time is plenty.');
+    const parsed=src.map((s,i)=>{
+      try{return{src:s,ts:lex(s),ast:parse(lex(s))};}
+      catch(e){throw Error(src.length>1?`Line ${i+1}, “${s}” — ${e.message}`:e.message);}});
+    const as=[];parsed.forEach(p=>p.ts.forEach(t=>{if(t.k==='atom'&&!as.includes(t.ch))as.push(t.ch);}));
+    as.sort();
+    if(as.length>4)throw Error(`That needs ${2**as.length} rows (${as.length} variables). Four variables is the sensible maximum here.`);
+    S={mode,exam:on('exam'),T:'T',F:'F',as,sents:[],cols:{},filled:new Set(),
+       act:null,marked:new Set(),ceMarked:new Set(),mains:new Set(),stage:'rows'};
+    let base=0;
+    parsed.forEach((p,i)=>{
+      const byCol={};nodes(p.ast).forEach(n=>byCol[n.col]=n);
+      const label=mode==='val'?(i<parsed.length-1?'Premise '+(i+1):'Conclusion')
+                 :mode==='ops'?'':parsed.length>1?'('+'abcde'[i]+')':'';
+      S.sents.push({src:p.src,disp:txt(p.ts),ts:p.ts,ast:p.ast,byCol,base,label});
+      Object.keys(byCol).forEach(c=>S.cols[base+ +c]={node:byCol[c],si:i});
+      base+=p.ts.length;});
+    const odd=S.sents.some(s=>s.ts.some(foreign)),cs=S.sents.some(s=>s.ts.some(t=>t.k==='atom'&&t.raw!==t.ch));
+    S.note=(odd?'\n\nNote: some of what you typed is not this course\'s notation, so it has been rewritten as  ~  &  v  -->  <-> . Use those symbols on homework and exams.':'')
+      +(cs?'\n\nNote: variables are lower-case letters in this course, so what you typed has been read as lower case.':'');
+    $('app_grid').innerHTML='';$('app_final').innerHTML='';$('app_stage').innerHTML='';appExLabel();
+    S.rows=null;S.nRows=2**as.length;
+    appAskRows();
+  }catch(e){appMsg(e.message,'err');}
+}
+
+function R(){return S.rows?S.rows.length:S.nRows;}
+
+function autoCopyAtoms(){
+  S.sents.forEach(s=>s.ts.forEach(t=>{if(t.k==='atom'){const g=s.base+t.col;S.filled.add(g);
+    S.rows.forEach((env,r)=>S[g+'|'+r]=env[t.ch]?S.T:S.F);}}));}
+
+function appAskRows(){
+  const n=S.as.length;
+  $('app_stage').innerHTML=`<b>Step 1.</b> ${n} variable${n>1?'s':''} (${S.as.join(', ')})${S.sents.length>1?' across all of them':''}.
+    How many rows does the table need?
+    <input type=text id=nr size=4> <button class="act" onclick=appChkRows()>${S.exam?'Next step':'Check'}</button>`;
+  appMsg('Step 1: how many rows?'+S.note);
+}
+
+function appChkRows(){
+  const v=+$('nr').value;
+  if(S.exam){
+    if(!(v>0&&v<=16))return appMsg('Enter a number of rows between 1 and 16.','err');
+    S.nRows=v;S.rows=null;S.stage='free';$('app_stage').innerHTML='';appDraw();
+    return appMsg('Fill in the whole table — the columns under the variables on the left, then every column of every formula. Nothing is checked until you submit.');
+  }
+  if(v!==2**S.as.length)
+    return appMsg(`Not quite — ${$('nr').value} isn't right. Each row is one combination of T and F across ${S.as.length} variable${S.as.length>1?'s':''}. How many such combinations are there?`,'err');
+  S.nRows=v;S.stage='atoms';$('app_stage').innerHTML='';appDraw();
+  appMsg(`Step 2: fill the ${S.as.length} left-hand column${S.as.length>1?'s':''} in the standard order`
+    +(on('anyOrder')?' (or another order, since you have allowed that)':'')
+    +`.\nStandard order: T above F — the leftmost variable switches once, half-way down; each variable after that switches twice as often; the rightmost alternates T, F every row.\nType T or F; the cursor moves down. Then press Check.`);
+}
+
+function clickable(g){return !!S.cols[g]&&!S.filled.has(g)&&S.stage==='pick';}
+function canDo(g){const{node,si}=S.cols[g],b=S.sents[si].base;
+  return clickable(g)&&deps(node).every(d=>S.filled.has(b+d));}
+function depCols(){
+  if(S.stage!=='fill'||S.act===null||!on('dep'))return[];
+  const{node,si}=S.cols[S.act],b=S.sents[si].base;
+  if(node.k==='atom')return['a'+S.as.indexOf(node.ch)];
+  return deps(node).map(d=>b+d);}
+function mainCols(){return S.sents.map(s=>s.base+s.ast.col);}
+function mainSet(){
+  if(!SHOWMAIN.includes(S.stage)||NOMAIN.includes(S.mode))return[];
+  return on('autoMain')?mainCols():[...S.mains];}
+
+function appDraw(){
+  const dep=depCols(),mset=mainSet(),multi=S.sents.length>1&&S.sents.some(s=>s.label);
+  let lab='';
+  if(multi)lab=`<tr><th colspan=${S.as.length}></th>`+S.sents.map(s=>
+    `<th class="lab sep" colspan=${s.ts.length}>${esc(s.label)}</th>`).join('')+'</tr>';
+  let hdr=S.as.map(a=>`<th>${esc(a)}</th>`).join('');
+  S.sents.forEach(s=>s.ts.forEach(t=>{
+    const g=s.base+t.col,clk=clickable(g);
+    const cl=S.act===g?'act':dep.includes(g)?'dep':mset.includes(g)?'main'
+            :S.stage==='main'&&S.cols[g]?'pk':S.filled.has(g)?'done'
+            :(S.cols[g]&&canDo(g)&&on('hint'))?'avail pk':clk?'pk':'';
+    const click=S.stage==='main'&&S.cols[g]?`onclick=appPickMain(${g})`:clk?`onclick=appPick(${g})`:'';
+    hdr+=`<th class="${cl}${t.col===0?' sep':''}" ${click}>${esc(t.ch)}</th>`;}));
+  let body='';
+  for(let r=0;r<R();r++){
+    const live=['prem','diff','examval'].includes(S.stage)||(S.stage==='ce'&&S.marked.has(r));
+    const rc=live?'rowpick ':'';
+    body+=`<tr class="${rc}${S.marked.has(r)?'marked ':''}${S.ceMarked&&S.ceMarked.has(r)?'cesel ':''}" ${rc?`onclick=appRowClick(${r})`:''}>`
+      +S.as.map((a,k)=>appCell('a'+k,r)).join('')
+      +S.sents.map(s=>s.ts.map(t=>t.k==='lp'||t.k==='rp'?`<td${t.col===0?' class=sep':''}></td>`
+          :appCell(s.base+t.col,r,t.col===0,mset.includes(s.base+t.col))).join('')).join('')+'</tr>';}
+  $('app_grid').innerHTML=`<table class="tt ${S.stage==='done'?'win':''}">${lab}<tr>${hdr}</tr>${body}</table>`+appBtns();
+  const f=document.querySelector('#app_grid input.c:not([readonly])');if(f)f.focus();
+}
+
+function appCell(c,r,sep,isMain){
+  const key=c+'|'+r,v=S[key]||'',num=typeof c==='number';
+  const ro=S.stage==='free'?false:(num?S.act!==c:S.stage!=='atoms');
+  const clk=num&&clickable(c);
+  const mainPick=num&&S.stage==='main'&&!!S.cols[c];
+  const cl=(sep?'sep ':'')+(S['bad'+key]?'bad ':'')+(clk||mainPick?'pk ':'')+(isMain?'mainc ':'')
+    +(depCols().includes(c)?'dep ':'')+(clk&&canDo(c)&&on('hint')?'av':'');
+  const click=mainPick?`onclick=appPickMain(${c})`:clk?`onclick=appPick(${c})`:'';
+  return `<td class="${cl.trim()}" ${click}><input class=c data-c="${c}" data-r="${r}" value="${v}" ${ro?'readonly':''} onkeydown="appKey(event)" oninput="appTyped(this)"></td>`;
+}
+
+function appBtns(){
+  if(S.stage==='free')return NOMAIN.includes(S.mode)
+    ?'<button class="act" onclick=appExamSubmit()>Submit</button>'
+    :'<button class="act" onclick=appExamNext()>Next step</button>';
+  if(S.stage==='atoms')return '<button class="act" onclick=appChkAtoms()>Check these columns</button>';
+  if(S.stage==='fill')return '<button class="act" onclick=appChkCol()>Check this column</button> <button class="ghost" onclick="S.act=null;S.stage=\'pick\';appDraw()">Pick a different column</button>';
+  if(S.stage==='pick')return '<span class=hint>Click any cell in a column to compute that column next.</span>';
+  if(S.stage==='main')return '<span class=hint>Click anywhere in the column under the major operator of '+(S.sents[S.mainI].label||'the formula')+'.</span>';
+  if(S.stage==='prem')return '<button class="act" onclick=appChkPrem()>Check these rows</button>'
+    +'<div class=key><span class=sw style="background:#e8dcff"></span>all premises true</div>';
+  if(S.stage==='diff')return '<button class="act" onclick=appChkDiff()>Check these rows</button>'
+    +'<div class=key><span class=sw style="background:#e8dcff"></span>the two major-operator columns differ</div>';
+  if(S.stage==='ce')return '<button class="act" onclick=appChkCE()>Check these rows</button>'
+    +'<div class=key><span class=sw style="background:#e8dcff"></span>all premises true'
+    +' &nbsp; <span class=sw style="background:#ffc98c"></span>conclusion false as well</div>';
+  if(S.stage==='examval'&&S.mode==='val')return '<div class=key>Click a row once for <span class=sw style="background:#e8dcff"></span>all premises true, again for <span class=sw style="background:#ffc98c"></span>counterexample, a third time to clear.</div>';
+  if(S.stage==='examval')return '<div class=key><span class=sw style="background:#e8dcff"></span>the two major-operator columns differ</div>';
+  return '';
+}
+
+function appKey(e){const i=e.target,c=i.dataset.c,r=+i.dataset.r;
+  const mv=d=>{const n=document.querySelector(`#app_grid input[data-c="${c}"][data-r="${r+d}"]`);if(n){n.focus();n.select();}};
+  if(e.key==='ArrowDown'){mv(1);e.preventDefault();}else if(e.key==='ArrowUp'){mv(-1);e.preventDefault();}
+  else if(e.key===' '){const v=i.value.toUpperCase();i.value=v===S.T?S.F:S.T;appTyped(i);e.preventDefault();}}
+
+function appTyped(i){const v=i.value.toUpperCase().slice(-1),c=i.dataset.c,r=+i.dataset.r;
+  if(v!==S.T&&v!==S.F){i.value='';delete S[c+'|'+r];return;}
+  i.value=v;S[c+'|'+r]=v;delete S['bad'+c+'|'+r];i.parentNode.classList.remove('bad');
+  const n=document.querySelector(`#app_grid input[data-c="${c}"][data-r="${r+1}"]`);if(n){n.focus();n.select();}}
+
+function readRows(){
+  const got=[];
+  for(let r=0;r<R();r++){const row=S.as.map((a,k)=>S['a'+k+'|'+r]||'');
+    if(row.some(x=>!x))return null;got.push(row.join(''));}
+  return got;}
+
+const ORDERRULE='Standard order: T above F — the leftmost variable switches once, half-way down; each variable after that switches twice as often; the rightmost alternates T, F every row.';
+function markRows(rs){rs.forEach(r=>S.as.forEach((a,k)=>S['bada'+k+'|'+r]=1));}
+function rowsFrom(got){return got.map(s=>{const e={};S.as.forEach((a,k)=>e[a]=s[k]===S.T);return e;});}
+
+function appChkAtoms(){
+  const got=readRows();
+  if(!got)return appMsg('Fill in every cell in these columns first.','err');
+  const first={},dup=new Set();
+  got.forEach((s,r)=>{if(first[s]===undefined)first[s]=r;else{dup.add(r);dup.add(first[s]);}});
+  if(dup.size){markRows([...dup]);appDraw();
+    return appMsg(`Some combinations appear more than once — the marked rows repeat each other, so the same number of combinations must be missing. With ${S.as.length} variables there are exactly ${2**S.as.length}, each appearing once.\n\n${ORDERRULE}`,'err');}
+  const canon=canonStrings(S.as),std=canon.every((s,i)=>s===got[i]);
+  if(!std&&!on('anyOrder')){
+    markRows(got.map((s,r)=>s===canon[r]?-1:r).filter(r=>r>=0));appDraw();
+    return appMsg(`All ${got.length} combinations are there exactly once — but not in the standard order, and this course expects the standard order, so that a table can be read and graded the same way every time. The rows that do not match are marked.\n\n${ORDERRULE}`,'err');}
+  S.rows=rowsFrom(got);
+  let note=std?'Rows are right, in the standard order.'
+    :`Accepted — all ${got.length} combinations are there exactly once, and you have allowed a non-standard order, so the rest of the table will be checked against the order you used. On homework and exams use the standard order: it is what the answer keys and your grader read.`;
+  if(on('autoCopy')){autoCopyAtoms();note+='\n\nColumns under the variables are copied across for you.';}
+  else note+='\n\nNow copy each variable into its own columns yourself, then work outwards. Those columns come first.';
+  if(S.sents.every(s=>S.filled.has(s.base+s.ast.col)))return appAfterColumns();
+  S.stage='pick';appDraw();
+  appMsg(note+'\n\nStep 3: which column can you compute next? A column can be computed only once the columns it is built from are done.'
+    +(S.sents.length>1?' You can work across the lines in any order.':''));
+}
+
+function appPick(g){
+  if(!clickable(g))return;
+  if(!canDo(g))return appMsg("Not yet — that column is built from a part you haven't computed. Look for an operator whose parts are already filled in, and work outwards from there.",'err');
+  S.act=g;S.stage='fill';appDraw();
+  const{node:n,si}=S.cols[g],s=S.sents[si];
+  if(n.k==='atom')return appMsg(`Copying the variable ${n.ch} into this column`+(s.label?` (${s.label})`:'')
+    +`.\n${on('dep')?'It comes straight from the blue reference column on the left. ':''}Type T/F down the column, then Check.`);
+  const ns=nodes(n).map(x=>x.col),sub=txt(s.ts.slice(Math.min(...ns),Math.max(...ns)+1));
+  const dp=deps(n),plural=dp.length>1?'s':'',atomic=dp.every(x=>s.byCol[x].k==='atom');
+  appMsg(`Computing the column under this ${OPNAME[n.k]} — the value of ${sub} in each row`+(s.label?` (${s.label})`:'')+`.\n`
+    +(on('dep')?`Work from the blue column${plural}${atomic?'':', not from the variables'}. `:'')
+    +`Type T/F down the column, then Check.`);
+}
+
+function appChkCol(){
+  const g=S.act,{node:n}=S.cols[g];let bad=0;
+  S.rows.forEach((env,r)=>{if(S[g+'|'+r]!==(ev(n,env)?S.T:S.F)){bad++;S['bad'+g+'|'+r]=1;}});
+  if(bad){appDraw();return appMsg(`${bad} row${bad>1?'s':''} not right — marked. `
+    +(n.k==='atom'?'Copy the values straight down from the reference column on the left.'
+     :"Check those rows against the columns this one is built from; don't recompute from the variables."),'err');}
+  S.filled.add(g);S.act=null;
+  if(S.sents.every(s=>S.filled.has(s.base+s.ast.col)))return appAfterColumns();
+  S.stage='pick';appDraw();
+  const left=Object.keys(S.cols).filter(c=>!S.filled.has(+c)).length;
+  appMsg(`Correct. ${left} column${left>1?'s':''} to go. Which one next?`);
+}
+
+function appAfterColumns(){
+  if(on('autoMain')||S.exam||NOMAIN.includes(S.mode))return appStartFinal();
+  S.mainI=0;S.stage='main';appDraw();
+  appMsg(`The table is complete. Before reading anything off it: click the column under the major operator of ${S.sents[0].label||'the formula'} — the one whose column gives the value of the whole formula.`);
+}
+
+function appPickMain(g){
+  const want=S.sents[S.mainI].base+S.sents[S.mainI].ast.col;
+  if(g!==want)return appMsg('That is the major operator of a part, not of the whole formula. The major operator is the last one you computed — the one every other column feeds into.','err');
+  S.mains.add(g);S.mainI++;
+  if(S.mainI>=S.sents.length){S.mains=new Set(mainCols());return appStartFinal();}
+  appDraw();appMsg(`Right. Now the major operator of ${S.sents[S.mainI].label||''}.`);
+}
+
+function colOf(i){const s=S.sents[i];return S.rows.map((e,r)=>S[(s.base+s.ast.col)+'|'+r]===S.T);}
+function diffRows(){return differing(colOf(0),colOf(1));}
+
+function appStartFinal(){
+  if(S.mode==='ops')return appFinish('Every operator column is right — that is the complete truth table for each of the five operators.');
+  if(S.mode==='frm')return appFinish('The table is complete, and every column is right.');
+  if(S.mode==='val'){S.marked=new Set();S.ceMarked=new Set();S.stage='prem';appDraw();$('app_final').innerHTML='';
+    return appMsg('Step 4: '+(on('defs')
+      ?'click every row in which ALL the premises are true. Ignore the conclusion for now.'
+      :'mark every row in which all the premises are true.'));}
+  if(S.mode==='cmp'){S.marked=new Set();S.stage='diff';appDraw();$('app_final').innerHTML='';
+    return appMsg('Step 4: '+(on('defs')
+      ?'click every row in which the two major-operator columns DIFFER — one T and the other F. There may be none.'
+      :'mark every row in which the two columns differ. There may be none.'));}
+  S.stage='final';appDraw();appAskClassify();
+}
+
+function appAskClassify(){
+  const opts=[['taut','tautology'],['contra','contradiction'],['cgcy','contingency']];
+  $('app_final').innerHTML='<b>Step 4.</b> Read each major-operator column:<br>'
+    +defn('A <b>tautology</b> is true in every row. A <b>contradiction</b> is false in every row. A statement form is a <b>contingency</b> when it is true in at least one row and false in at least one row.')
+    +S.sents.map((s,i)=>`<div class=q><code>${esc(s.disp)}</code>
+      <select id=f${i}><option value="">choose…</option>${opts.map(([v,t])=>`<option value=${v}>${t}</option>`).join('')}</select></div>`).join('')
+    +`<button class="act" onclick=${S.exam?'appExamSubmit()':'appChkClassify()'}>${S.exam?'Submit':'Check'}</button>`;
+  appMsg('Step 4: each answer comes from one column.');
+}
+
+function appChkClassify(){
+  const wrong=[];
+  S.sents.forEach((s,i)=>{const g=$('f'+i).value;
+    if(!g)return wrong.push(s.disp+' (not answered)');
+    if(g!==classify(colOf(i)))wrong.push(s.disp);});
+  if(wrong.length)return appMsg(`Not right for: ${wrong.join(', ')}.\nLook only at the column under the major operator of each, and ask whether it has a T somewhere and an F somewhere.`,'err');
+  appFinish('Every one classified correctly.');
+}
+
+function appChkDiff(){
+  const want=new Set(diffRows());
+  const missed=[...want].filter(r=>!S.marked.has(r)),extra=[...S.marked].filter(r=>!want.has(r));
+  if(missed.length||extra.length)
+    return appMsg(`Not quite. ${missed.length?`You missed ${missed.length} row${missed.length>1?'s':''} in which the two columns differ. `:''}`
+      +`${extra.length?`In ${extra.length} of the rows you marked the two columns agree. `:''}Compare the two major-operator columns one row at a time.`,'err');
+  S.stage='cmpverdict';appDraw();
+  $('app_final').innerHTML='<b>Step 5.</b> '+defn('Two statement forms are <b>logically equivalent</b> when they have the same truth value on every assignment — that is, when their major-operator columns match all the way down.')
+    +'<button class="act" onclick="appCmpVerdict(true)">They are logically equivalent</button> <button class="act" onclick="appCmpVerdict(false)">They are not logically equivalent</button>';
+  appMsg(`Step 5: you have marked ${S.marked.size===0?'no row':S.marked.size+' row'+(S.marked.size===1?'':'s')} in which the two columns differ. So: logically equivalent, or not?`);
+}
+
+function appCmpVerdict(v){
+  const d=diffRows();
+  if(v&&d.length)return appMsg('Not so — you have just marked a row in which one of them is true and the other false. Can two forms be logically equivalent if they can differ in truth value?','err');
+  if(!v&&!d.length)return appMsg('Not so — you found no row in which they differ. What does that show about equivalence?','err');
+  if(v)return appFinish('The two columns match in every row, so the forms have the same truth value on every assignment. They are logically equivalent.');
+  appFinish(`${d.length>1?'Those rows are':'That row is'} an assignment on which one is true and the other false, so the two forms are not logically equivalent.`);
+}
+
+function appRowClick(r){
+  if(S.stage==='ce'){
+    if(!S.marked.has(r))return appMsg('Only the rows you already marked can be counterexamples — in the others, not every premise is true.','err');
+    S.ceMarked.has(r)?S.ceMarked.delete(r):S.ceMarked.add(r);appDraw();
+    return appMsg(`${S.ceMarked.size} row${S.ceMarked.size===1?'':'s'} picked out.`);}
+  if(S.stage==='examval'){
+    if(S.mode==='val'){
+      if(!S.marked.has(r))S.marked.add(r);
+      else if(!S.ceMarked.has(r))S.ceMarked.add(r);
+      else{S.marked.delete(r);S.ceMarked.delete(r);}}
+    else S.marked.has(r)?S.marked.delete(r):S.marked.add(r);
+    appDraw();return appExamPanel();}
+  if(S.stage!=='prem'&&S.stage!=='diff')return;
+  S.marked.has(r)?S.marked.delete(r):S.marked.add(r);appDraw();
+  appMsg(`${S.marked.size} row${S.marked.size===1?'':'s'} marked.`);
+}
+
+function appChkPrem(){
+  const cols=S.sents.map((s,i)=>colOf(i)),n=S.sents.length-1,want=new Set(premRows(cols,n));
+  const missed=[...want].filter(r=>!S.marked.has(r)),extra=[...S.marked].filter(r=>!want.has(r));
+  if(missed.length||extra.length)
+    return appMsg(`Not quite. ${missed.length?`You missed ${missed.length} row${missed.length>1?'s':''} in which every premise is true. `:''}`
+      +`${extra.length?`${extra.length} of the rows you marked ${extra.length>1?'have':'has'} at least one false premise. `:''}Check each premise column in turn.`,'err');
+  S.ceMarked=new Set();S.stage='ce';appDraw();$('app_final').innerHTML='';
+  appMsg(`Step 5: ${want.size===0?'you found no such row at all. '
+      :`${want.size} row${want.size===1?'':'s'} marked. `}`
+    +'Now, from among the rows you marked and only those, click every row in which the CONCLUSION is false. There may be none — if so, click nothing and press Check.'
+    +(on('defs')?'\n\nSuch a row is a counterexample: every premise true and the conclusion false.':''));
+}
+
+function appChkCE(){
+  const cols=S.sents.map((s,i)=>colOf(i)),n=S.sents.length-1,ce=new Set(counterexamples(cols,n));
+  const bad=[...S.ceMarked].filter(r=>!ce.has(r)),miss=[...ce].filter(r=>!S.ceMarked.has(r));
+  if(bad.length||miss.length)
+    return appMsg(`Not quite. ${bad.length?`${bad.length} of the rows you picked out ${bad.length>1?'have':'has'} a TRUE conclusion. `:''}`
+      +`${miss.length?`You missed ${miss.length} of the marked rows in which the conclusion is false. `:''}`
+      +'Look only at the conclusion column, and only in the rows already marked.','err');
+  S.stage='verdict';appDraw();
+  $('app_final').innerHTML='<b>Step 6.</b> '+defn('An argument form is <b>deductively valid</b> when it is impossible for all the premises to be true and the conclusion false — that is, when the table has no row in which every premise is T and the conclusion is F.')
+    +'<button class="act" onclick="appVerdict(true)">The argument form is valid</button> <button class="act" onclick="appVerdict(false)">The argument form is invalid</button>';
+  appMsg(`Step 6: you have marked ${S.ceMarked.size===0?'no row':S.ceMarked.size+' row'+(S.ceMarked.size===1?'':'s')} in which every premise is true and the conclusion false. So: valid, or invalid?`);
+}
+
+function appVerdict(v){
+  const cols=S.sents.map((s,i)=>colOf(i)),n=S.sents.length-1,ce=counterexamples(cols,n);
+  if(v&&ce.length)return appMsg('Not so — you have just marked a row in which every premise is true and the conclusion is false. What does such a row show about validity?','err');
+  if(!v&&!ce.length)return appMsg('Not so — you found no row in which every premise is true and the conclusion false. What does that show about validity?','err');
+  if(v)return appFinish(S.marked.size
+    ?'In every row where all the premises are true, the conclusion is true as well, so there is no counterexample. The argument form is valid.'
+    :'There is no row at all in which every premise is true — the premises are inconsistent — so there can be no counterexample. The argument form is valid.');
+  appFinish(`${S.ceMarked.size>1?'Those rows are':'That row is'} exactly what invalidity means: every premise true, the conclusion false. The argument form is invalid.`);
+}
+
+function appExamNext(){
+  if(S.stage!=='free')return;
+  const got=readRows();
+  if(!got)return appMsg('Fill in the left-hand columns before going on.','err');
+  S.rows=rowsFrom(got);
+  if(S.mode==='val'||S.mode==='cmp'){
+    S.marked=new Set();S.ceMarked=new Set();S.claim=undefined;S.stage='examval';appDraw();appExamPanel();
+    return appMsg(S.mode==='val'
+      ?'Give your verdict, and mark the rows that justify it: click a row once to mark every premise true, twice to mark it a counterexample. Nothing is checked until you submit.'
+      :'Give your verdict, and mark every row in which the two major-operator columns differ — there may be none. Nothing is checked until you submit.');}
+  S.stage='final';appDraw();appAskClassify();
+}
+
+function appExamPanel(){
+  const c=S.mode==='cmp';
+  $('app_final').innerHTML='<b>Verdict.</b> '
+    +`<button class="act ${S.claim===true?'sel':''}" onclick="appExamVerdict(true)">${c?'Logically equivalent':'Valid'}</button> `
+    +`<button class="act ${S.claim===false?'sel':''}" onclick="appExamVerdict(false)">${c?'Not logically equivalent':'Invalid'}</button> `
+    +`<button class="act" onclick=appExamSubmit()>Submit</button>`
+    +`<div class=key>${S.marked.size} row${S.marked.size===1?'':'s'} marked`
+    +(c?'':`, ${S.ceMarked.size} of them as counterexample${S.ceMarked.size===1?'':'s'}`)+'</div>';
+}
+
+function appExamVerdict(v){S.claim=v;appExamPanel();}
+
+function localExpect(node,si,r){
+  const b=S.sents[si].base;
+  if(node.k==='atom')return S['a'+S.as.indexOf(node.ch)+'|'+r];
+  const a=S[(b+node.a.col)+'|'+r];
+  if(a===undefined)return undefined;
+  if(node.k==='not')return a===S.T?S.F:S.T;
+  const c=S[(b+node.b.col)+'|'+r];
+  if(c===undefined)return undefined;
+  const A=a===S.T,C=c===S.T;
+  const val=node.k==='and'?(A&&C):node.k==='or'?(A||C):node.k==='imp'?(!A||C):(A===C);
+  return val?S.T:S.F;
+}
+
+function appExamSubmit(){
+  const steps=[];
+  if(S.nRows!==2**S.as.length)
+    steps.push(`Step 1 — the number of rows. With ${S.as.length} variable${S.as.length>1?'s':''} the table needs ${2**S.as.length} rows; you used ${S.nRows}.`);
+  const got=readRows();
+  if(!got)steps.push('Step 2 — the columns under the variables are not completely filled in.');
+  else{
+    if(!S.rows)S.rows=rowsFrom(got);
+    const first={},dup=new Set();
+    got.forEach((s,r)=>{if(first[s]===undefined)first[s]=r;else{dup.add(r);dup.add(first[s]);}});
+    const canon=canonStrings(S.as);
+    if(dup.size){markRows([...dup]);
+      steps.push(`Step 2 — the rows. ${dup.size} of them repeat a combination that appears elsewhere, so the same number of combinations are missing.`);}
+    else if(!canon.every((s,i)=>s===got[i])){
+      markRows(got.map((s,r)=>s===canon[r]?-1:r).filter(r=>r>=0));
+      steps.push('Step 2 — the rows. All the combinations are there, but not in the standard order; the marked rows are the ones that differ. '+ORDERRULE);}}
+  const wrong=[];
+  Object.keys(S.cols).forEach(g=>{const{node,si}=S.cols[+g];
+    for(let r=0;r<R();r++){const want=localExpect(node,si,r),got2=S[g+'|'+r];
+      if(want===undefined||got2===undefined){if(got2===undefined)wrong.push([+g,r,'blank']);continue;}
+      if(got2!==want)wrong.push([+g,r,'wrong']);}});
+  wrong.forEach(([g,r])=>S['bad'+g+'|'+r]=1);
+  if(wrong.length){
+    const blanks=wrong.filter(w=>w[2]==='blank').length,errs=wrong.length-blanks;
+    const cols=[...new Set(wrong.filter(w=>w[2]==='wrong').map(w=>w[0]))];
+    const e1=errs===1?'1 cell does not follow from the column it is built from'
+      :`${errs} cells across ${cols.length} column${cols.length>1?'s':''} do not follow from the columns they are built from`;
+    steps.push(`Step 3 — the columns. ${errs?e1:''}${errs&&blanks?'; ':''}`
+      +`${blanks?`${blanks} cell${blanks>1?'s':''} left blank`:''}. The marked cells are the ones to look at — each is judged against what you wrote in the columns feeding it, so an early slip is not counted twice.`);}
+  let fin=null;
+  try{
+    if(S.mode==='cls'){const bad=[];
+      S.sents.forEach((s,i)=>{const g=$('f'+i).value;
+        if(!g)bad.push(s.disp+' (not answered)');
+        else if(g!==classify(colOf(i)))bad.push(s.disp);});
+      if(bad.length)fin=`Final step — the classification is not right for: ${bad.join(', ')}.`;}
+    else if(S.mode==='cmp'){
+      const d=new Set(diffRows());
+      if(S.claim===undefined)fin='Final step — no verdict given.';
+      else if(S.claim!==(d.size===0))fin='Final step — '+(S.claim
+        ?'you called them logically equivalent, but there is a row in which the two major-operator columns differ.'
+        :'you called them not logically equivalent, but the two major-operator columns agree in every row.');
+      else{const miss=[...d].filter(r=>!S.marked.has(r)),ex=[...S.marked].filter(r=>!d.has(r));
+        if(miss.length||ex.length)fin='Final step — the verdict is right, but the rows marked are not exactly those in which the two columns differ.';}}
+    else if(S.mode==='val'){
+      const cols=S.sents.map((s,i)=>colOf(i)),n=S.sents.length-1;
+      const want=new Set(premRows(cols,n)),ce=new Set(counterexamples(cols,n));
+      const probs=[];
+      if(S.claim===undefined)probs.push('no verdict was given');
+      else if(S.claim!==(ce.size===0))probs.push(S.claim
+        ?'you called it valid, but there is a row with every premise true and the conclusion false'
+        :'you called it invalid, but there is no row with every premise true and the conclusion false');
+      const miss=[...want].filter(r=>!S.marked.has(r)),ex=[...S.marked].filter(r=>!want.has(r));
+      if(miss.length||ex.length)probs.push('the rows marked in purple are not exactly those in which every premise is true');
+      const cm=[...ce].filter(r=>!S.ceMarked.has(r)),cx=[...S.ceMarked].filter(r=>!ce.has(r));
+      if(cm.length||cx.length)probs.push('the rows marked in orange are not exactly those in which every premise is true and the conclusion false');
+      if(probs.length)fin='Final step — '+probs.join('; ')+'.';}
+  }catch(e){fin='Final step — could not read the answer.';}
+  if(fin)steps.push(fin);
+  S.stage='done';appDraw();$('app_final').innerHTML='<button class="act" onclick=appStart()>Try it again</button>'
+    +(curGen!==null?' <button class="act gen" onclick=appGenProblem()>Another random problem</button>':'');
+  if(!steps.length)return appFinish('Everything correct, first time, with no help. That is exam standard.');
+  appMsg('First problem: '+steps[0]+(steps.length>1?'\n\nAlso:\n'+steps.slice(1).map(s=>'· '+s).join('\n'):''),'err');
+}
+
+function appFinish(t){
+  S.stage='done';appDraw();
+  $('app_final').innerHTML='<button class="act" onclick=appStart()>Run it again</button> '
+    +(curGen!==null?'<button class="act gen" onclick=appGenProblem()>Another random problem &#9654;</button>'
+                   :'<button class="act ghost" onclick=appStepEx(1)>Next sample question &#9654;</button>');
+  appMsg('✓  '+t+'\n\nWhole table finished, every column checked. Nicely done.','win');
+}
+
+/* ================= standard engine (Weeks 4-10) ================= */
+function render(){
+  var mod=MODULES[mi], q=mod.q[qi], total=mod.q.length; answered=false;
+  var h=unitBanner();
+  h+='<div class="qcounter">Question '+(qi+1)+' of '+total+'</div>';
+  h+='<p class="prompt">'+esc(q.p)+'</p>';
+  if(q.txt){
+    h+='<input type="text" id="ta" placeholder="Type your answer using LPS 29 notation (~ &amp; v --&gt; &lt;-&gt;)" autocomplete="off">'
+      +'<p class="hint">Spacing is ignored. Forbidden symbols are auto-converted, but use LPS 29 notation on exams. Drop outermost parentheses.</p>';
+  } else {
+    h+='<ul class="choices">'+q.c.map(function(c,i){return '<li><label><input type="radio" name="ch" value="'+i+'"><span>'+esc(c)+'</span></label></li>';}).join('')+'</ul>';
+  }
+  h+='<div class="row"><button class="act" id="chk">Check answer</button>'
+   +'<button class="act warn" id="revall">Reveal all answers</button>'
+   +'<button class="act ghost" id="prev" '+(qi===0?'disabled':'')+'>\u2190 Previous question</button>'
+   +'<button class="act ghost" id="skip">Skip question \u21e8</button>'
+   +'<button class="act ghost" id="nxt" disabled>'+(qi+1<total?'Next question \u2192':'Finish module \u2713')+'</button>'
+   +'<button class="act ghost" id="rst">Restart module</button></div>'
+   +'<div class="fb fbx" id="fb"></div>'
+   +'<div class="bar"><i style="width:'+(qi/total*100)+'%"></i></div>'
+   +statusLine();
+  panel.innerHTML=h;
+  document.getElementById('chk').onclick=check;
+  document.getElementById('revall').onclick=revealHere;
+  document.getElementById('prev').onclick=function(){ if(qi>0){ qi--; render(); } };
+  document.getElementById('skip').onclick=function(){ skipped++; advance(); };
+  document.getElementById('nxt').onclick=advance;
+  document.getElementById('rst').onclick=function(){qi=0;score=0;skipped=0;revealedCount=0;render();};
+  var ta=document.getElementById('ta');
+  if(ta){ta.focus();ta.onkeydown=function(e){if(e.key==='Enter'&&!answered)check();};}
+}
+
+function advance(){
+  if(qi+1<MODULES[mi].q.length){qi++;render();} else {finish();}
+}
+
+function lockAndShow(kind){
+  var q=MODULES[mi].q[qi], fb=document.getElementById('fb');
+  var correct=q.txt?q.a[0]:q.c[q.a];
+  answered=true;
+  Array.prototype.forEach.call(panel.querySelectorAll('input'),function(el){el.disabled=true;});
+  if(q.txt){ var t=document.getElementById('ta'); if(t){ t.value=correct; t.className=(kind==='rev'?'revbox locked':'locked'); } }
+  else {
+    var labs=panel.querySelectorAll('.choices label');
+    if(labs[q.a]) labs[q.a].className=(kind==='rev'?'rev':'ok');
+  }
+  fb.className='fb fbx on '+(kind==='rev'?'rev':'ok');
+  fb.innerHTML=(kind==='rev'?'<strong>Answer revealed:</strong> <code>'+esc(correct)+'</code>. ':'')+esc(q.e);
+  document.getElementById('chk').disabled=true;
+  document.getElementById('revall').disabled=true;
+  document.getElementById('nxt').disabled=false;
+}
+
+function revealHere(){
+  if(answered) return;
+  revealedCount++; lockAndShow('rev');
+  panel.querySelector('.score').outerHTML=statusLine();
+}
+
+function check(){
+  if(answered) return;
+  var mod=MODULES[mi], q=mod.q[qi], fb=document.getElementById('fb'), ok=false;
+  if(q.txt){
+    var v=document.getElementById('ta').value; if(!norm(v))return;
+    ok=q.a.some(function(x){return norm(x)===norm(v);});
+  } else {
+    var r=panel.querySelector('input[name=ch]:checked'); if(!r)return;
+    ok=(+r.value===q.a);
+  }
+  answered=true; if(ok)score++;
+  var correct=q.txt?q.a[0]:q.c[q.a];
+  fb.className='fb fbx on '+(ok?'ok':'no');
+  fb.innerHTML=(ok?'<strong>\u2713 Correct.</strong> ':'<strong>\u2717 Not quite.</strong> The correct answer is <code>'+esc(correct)+'</code>. ')+esc(q.e);
+  document.getElementById('chk').disabled=true;
+  document.getElementById('revall').disabled=true;
+  document.getElementById('nxt').disabled=false;
+  panel.querySelector('.score').outerHTML=statusLine();
+  panel.querySelector('.bar>i').style.width=((qi+1)/mod.q.length*100)+'%';
+}
+
+function finish(){
+  var mod=MODULES[mi], total=mod.q.length, pct=Math.round(score/total*100);
+  panel.innerHTML=unitBanner()
+   +'<div class="qcounter">Module complete \u2014 '+total+' of '+total+'</div>'
+   +'<p class="prompt">You scored <strong>'+score+' / '+total+'</strong> ('+pct+'%).</p>'
+   +'<p class="hint">Questions skipped: '+skipped+' \u00b7 answers revealed: '+revealedCount+'</p>'
+   +'<div class="row"><button class="act" id="again">Restart this module</button></div>';
+  document.getElementById('again').onclick=function(){qi=0;score=0;skipped=0;revealedCount=0;render();};
+}
+
+sel.onchange();
+</script>
+</body>
+</html>
